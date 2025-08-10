@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Yi Wei Chu</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== Page-specific layout & typography normalization ===== */
+    body, h1, h2, h3, p, li, a, span, small, strong, em, button {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC",
+                   "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+    }
+
+    .about-wrap { padding: 24px 0 8px; }
+    .about-section {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .about-section h2 { margin: 0 0 8px; }
+    .about-section .muted { color: var(--muted); }
+
+    /* 既有列表規則（保留給未客製的 li） */
+    .list-tight { list-style: none; margin: 0; padding-left: 0; }
+    .list-tight li {
+      position: relative;
+      margin: 10px 0;
+      line-height: 1.6;
+      text-align: left;
+      padding-right: 18ch; /* 預留日期空間 */
+    }
+    .list-tight li > i:first-of-type {
+      position: absolute;
+      right: 0;
+      top: 0;
+      white-space: nowrap;
+      text-align: right;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Skills 標籤：字體一致 */
+    .tag {
+      display:inline-block;
+      font-family: inherit;
+      font-weight: inherit;
+      letter-spacing: normal;
+      font-size: 14px;
+      padding: 2px 8px;
+      margin: 0 6px 6px 0;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 999px;
+    }
+
+    .kv { display:grid; grid-template-columns: 160px 1fr; gap: 10px; align-items:start; }
+    .kv b { color: var(--text); }
+
+    /* Hero split: text left, photo right */
+    .hero-split {
+      padding: 48px 0 24px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(147,197,177,.18), rgba(11,13,15,0));
+    }
+    .hero-grid {
+      display:grid; gap:24px; align-items:center;
+      grid-template-columns: 1.2fr .8fr;
+    }
+    .hero-grid h1 { margin:0 0 8px; font-size:40px; line-height:1.2 }
+    .hero-sub { margin:0; }
+    .hero-lang { margin:6px 0 0; color: var(--muted); }
+    .hero-photo-wrap { display:flex; justify-content:flex-end }
+    .hero-photo {
+      width:220px; height:220px; border-radius:50%;
+      object-fit:cover; border:3px solid rgba(255,255,255,.18);
+      box-shadow: 0 6px 24px rgba(0,0,0,.35);
+    }
+
+    /* Two-up sections (Skills / International) */
+    .two-grid { display:grid; gap:20px; grid-template-columns: repeat(2, 1fr); }
+
+    /* ===== 你指定的客製規則 ===== */
+
+    /* International Experience：title 左 / 日期右，同列；描述滿版換行 */
+    .ie-list li { padding-right: 0; }
+    .ie-list .li-row { display:flex; align-items:flex-start; gap:12px; }
+    .ie-list .li-title { font-weight:700; }
+    .ie-list .li-date { margin-left:auto; white-space:nowrap; color:var(--muted); font-style:italic; }
+    .ie-list .li-desc { display:block; margin-top:4px; }
+
+    /* Professional（Top Credit / EnJade / LesCs）：title 左 / 日期右，同列；bullets 滿版 */
+    .jobs-list li.no-pad { padding-right:0; }
+    .jobs-list .li-row { display:flex; align-items:flex-start; gap:12px; }
+    .jobs-list .li-title { font-weight:700; }
+    .jobs-list .li-date { margin-left:auto; white-space:nowrap; color:var(--muted); font-style:italic; }
+    .subbullets { list-style:disc; margin:8px 0 0 18px; padding:0; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid { grid-template-columns: 1fr; text-align:center }
+      .hero-photo-wrap { justify-content:center }
+    }
+    @media (max-width: 900px){
+      .two-grid { grid-template-columns: 1fr; }
+
+      /* RWD：把 date 放到下一行 */
+      .ie-list .li-row, .jobs-list .li-row { flex-wrap: wrap; }
+      .ie-list .li-date, .jobs-list .li-date { margin-left:0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Yi Wei Chu • Portfolio</a>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html" class="active">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO (text left, photo right) ===== -->
+  <header class="hero-split">
+    <div class="container hero-grid">
+      <div>
+        <h1>About Yi Wei Chu</h1>
+        <p class="hero-sub">Project Management · KPI Optimization · Stakeholder Communication · Global Supply Chain · Marketing Strategy</p>
+        <p class="hero-lang">Mandarin | English | French</p>
+      </div>
+      <div class="hero-photo-wrap">
+        <img class="hero-photo" src="./images/my-photo.jpg" alt="Yi Wei Chu">
+      </div>
+    </div>
+  </header>
+
+  <main class="container about-wrap">
+
+    <!-- ===== 1) Academic Background (full width row) ===== -->
+    <section class="about-section">
+      <h2>1) Academic Background</h2>
+      <ul class="list-tight">
+        <li>
+          <b>emlyon business school | International MBA (Entrepreneurship)</b>, Lyon, France
+          <i>Sep 2024 – Jul 2025</i>
+        </li>
+        <li>
+          <b>National Chung Hsing University | Master of International Politics</b>, Taichung, Taiwan
+          <i>Sep 2021 – Jun 2023</i>
+        </li>
+        <li>
+          <b>Fu Jen Catholic University | B.A. French Language & Culture</b>, New Taipei, Taiwan
+          <i>Sep 2014 – Jun 2018</i>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 2) Professional Background (full width row) ===== -->
+    <section class="about-section" style="margin-top:20px">
+      <h2>2) Professional Background</h2>
+      <ul class="list-tight jobs-list">
+
+        <!-- Top Credit：左題右日 + bullets（已調好） -->
+        <li class="no-pad">
+          <div class="li-row">
+            <span class="li-title"><b>Project Manager | Top Credit Oversea Co. (Taiwan / China)</b></span>
+            <span class="li-date">Sep 2018 – Jun 2023</span>
+          </div>
+          <ul class="subbullets">
+            <li>Led 10–15 concurrent B2B product development projects per season, managing the full lifecycle across sourcing, production, QC, and client delivery.</li>
+            <li>Maintained 95%+ on-time shipment rate and reduced defect rate to below 2%, enhancing client retention and satisfaction.</li>
+            <li>Managed €100K+ annual budgets across 5+ European clients, driving repeat orders and long-term partnerships.</li>
+            <li>Reduced supplier lead times by 10% through proactive coordination with 15+ vendors in China, optimizing cross-border operations.</li>
+            <li>Built and maintained logistics KPI dashboards using Excel and Trello, improving stock accuracy from 85% to 95%.</li>
+            <li>Represented company at international trade fairs (e.g., MEGA SHOW, Ambiente), securing 3+ new B2B contracts through negotiation.</li>
+          </ul>
+        </li>
+
+        <!-- EnJade：改成左題右日 + bullets（依你提供內容） -->
+        <li class="no-pad">
+          <div class="li-row">
+            <span class="li-title"><b>Founder & Project Lead | EnJade</b> (France & Taiwan)</span>
+            <span class="li-date">Dec 2023 – Present</span>
+          </div>
+          <ul class="subbullets">
+            <li>Launched a DTC jewelry brand combining emotional storytelling, reaching €14K/month revenue and 2%+ conversion within 6 months.</li>
+            <li>Oversaw full business lifecycle: supplier sourcing (5+ partners), quality control, inventory planning, pricing, and cross-border logistics.</li>
+            <li>Built enjade.fr with Squarespace; implemented SEO, Mailchimp CRM, AI-driven personalization, and integrated performance tracking (GA, Meta Suite), enabling dynamic pricing and stock optimization.</li>
+            <li>Designed and implemented strategic pricing model aligned with buyer psychology, improving AOV from €160 to €200 and repeat purchase rate via symbolic product storytelling.</li>
+            <li>Led MVP development of “AI Curator” for personalized onboarding and product recommendation, targeting 80% interaction rate and first-party emotional data capture.</li>
+          </ul>
+        </li>
+
+        <!-- LesCs News：改成左題右日 + bullets（依你提供內容） -->
+        <li class="no-pad">
+          <div class="li-row">
+            <span class="li-title"><b>Co-operator & Project Lead | LesCs News</b> (Taiwan)</span>
+            <span class="li-date">Jan 2020 – Jan 2023</span>
+          </div>
+          <ul class="subbullets">
+            <li>Planned and delivered 25+ multi-channel content campaigns, managing end-to-end workflows from ideation to rollout across editorial, design, and distribution teams.</li>
+            <li>Scaled Instagram presence to 14K+ followers with 20% monthly engagement growth through agile content testing, calendar optimization, and metric tracking.</li>
+            <li>Defined KPIs, built tracking frameworks, and led weekly performance reviews to drive data-informed content and engagement strategy.</li>
+            <li>Coordinated with external influencers and internal contributors to align messaging, timelines, and deliverables across cross-functional teams.</li>
+            <li>Implemented audience segmentation and social listening to improve content targeting, boosting retention and share rates by 30%+.</li>
+          </ul>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- ===== 3) Skills + 4) International (two columns) ===== -->
+    <div class="two-grid" style="margin-top:20px">
+
+      <!-- 3) Skills -->
+      <section class="about-section">
+        <h2>3) Skills</h2>
+        <p><b>Core Competencies</b></p>
+        <div>
+          <span class="tag">Project Management | Product Lifecycle & Roadmaps</span>
+          <span class="tag">KPI Optimization | Cross-Functional Collaboration</span>
+          <span class="tag">Stakeholder Management | Suppliers Negotiation</span>
+          <span class="tag">Customer Relationship Management | GTM Strategy</span>
+          <span class="tag">Marketing Strategy | SEO | Social Media Ads</span>
+        </div>
+
+        <p style="margin-top:10px"><b>Tools</b></p>
+        <div>
+          <span class="tag">Excel | Microsoft Office | Notion | Trello</span>
+          <span class="tag">Slack | ClickUp | Loop | Canva | X-Mind</span>
+          <span class="tag">Adobe Illustrator | Photoshop | Acrobat | Capcut</span>
+          <span class="tag">Squarespace | Wix | Google Analytics | Basic HTML</span>
+        </div>
+
+        <p style="margin-top:10px"><b>Ongoing Learning</b></p>
+        <div>
+          <span class="tag">Power BI | Tableau | CAPM</span>
+        </div>
+      </section>
+
+      <!-- 4) International Experience -->
+      <section class="about-section">
+        <h2>4) International Experience</h2>
+        <ul class="list-tight ie-list">
+          <li>
+            <div class="li-row">
+              <span class="li-title"><b>Institut Catholique de Paris</b></span>
+              <span class="li-date">Jan – Jun 2018</span>
+            </div>
+            <span class="li-desc">Exchange Student | Paris, France</span>
+          </li>
+          <li>
+            <div class="li-row">
+              <span class="li-title"><b>White Water Elderly Charity Association</b></span>
+              <span class="li-date">Aug 2016</span>
+            </div>
+            <span class="li-desc">International Clinic Volunteer | Cambodia</span>
+            <span class="li-desc">Supported educational outreach, basic health education, and distribution of essential supplies.</span>
+          </li>
+          <li>
+            <div class="li-row">
+              <span class="li-title"><b>White Water Elderly Charity Association</b></span>
+              <span class="li-date">Aug 2017</span>
+            </div>
+            <span class="li-desc">International Clinic Volunteer | Cambodia</span>
+            <span class="li-desc">Supported educational outreach, basic health education, and distribution of essential supplies.</span>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+
+    <!-- ===== 5) Interests (single row) ===== -->
+    <section class="about-section" style="margin-top:20px">
+      <h2>5) Interests & Certifications</h2>
+      <p>Jadeite Appraiser &nbsp; | &nbsp; Piano - Steinbach Certification &nbsp; | &nbsp; Aerial Yoga Teacher Training Level 1</p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container small">© 2025 Yi Wei Chu — All rights reserved.</div>
+  </footer>
+</body>
+</html>

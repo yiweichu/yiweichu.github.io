@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project | Yi Wei Chu</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    * { box-sizing: border-box; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC","Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji"; color: var(--text); }
+    .wrap { padding: 24px 0 8px; }
+    .section { background: var(--card); border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+    .muted { color: var(--muted); }
+    .breadcrumbs { font-size: 14px; margin-bottom: 8px; }
+    .kv { display:grid; grid-template-columns: 160px 1fr; gap:10px; }
+    .link { text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.35); }
+    .bullets { margin: 6px 0 0 18px; }
+    .bullets li { margin: 4px 0; }
+    @media (max-width: 800px){ .kv{ grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Yi Wei Chu • Portfolio</a>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="breadcrumbs"><a class="link" href="projects.html">← Back to Projects</a></div>
+      <h1 id="title">Project</h1>
+      <p class="muted" id="subtitle"></p>
+    </div>
+  </header>
+
+  <main class="container wrap" id="content"></main>
+
+  <footer class="footer">
+    <div class="container small">© 2025 Yi Wei Chu — All rights reserved.</div>
+  </footer>
+
+  <script>
+    /* ========= DATA（確保 slug 與 projects.html 完全一致） ========= */
+    const ownBrands = [
+      { category:"brand", slug:"enjade", title:"EnJade",
+        brandOverview:"EnJade is a jewelry brand that reimagines jadeite as a cultural vessel and artistic expression. Each piece is given a unique story, transforming it into an extension of emotion, culture, and personal experience. By blending Eastern jade aesthetics with Western narrative artistry, we break away from the outdated perception of jade as old-fashioned, overly expensive, and out of reach—making it a medium for contemporary wearable art and self-expression.",
+        whyWeDoIt:"In the mainstream jewelry market, jadeite has long been confined to traditional values and stereotypes. Yet jade carries a timeless cultural significance and emotional depth. EnJade’s mission is to break these boundaries, allowing jade to enter modern life as an accessible, relevant, and artful medium for personal stories and cultural dialogue.",
+        role:"Founder & Project Lead",
+        instagramUrls:[
+          { label:"Instagram France", url:"https://www.instagram.com/enjade.fr/" },
+          { label:"Instagram Taiwan", url:"https://www.instagram.com/en.jade_/" }
+        ],
+        websiteUrl:"https://www.enjade.fr/",
+        achievements:[
+          "Grew Instagram from 0 to 2,000+ followers and €14K+/month revenue within six months of launch.",
+          "2%+ store conversion; AOV €160 → €200",
+          "Launched Squarespace storefront with SEO/CRM",
+          "Introduces AI Curator, delivering personalized jadeite recommendations through intelligent, story-driven curation."
+        ]
+      },
+      { category:"brand", slug:"lescs-news", title:"LesCs News",
+        brandOverview:"LesCs News is a youth-centered civic media platform built around one simple idea: in the time it takes to enjoy a cup of coffee, you can get 1 c.c. of Global news. We transform international and public affairs into concise, relatable, and story-driven content, merging journalistic rigor with social media culture, so that young people can see the world and discover their personal connection to it.",
+        whyWeDoIt:"In an age of information overload and widening knowledge gaps, young voices are often missing from global conversations because mainstream media doesn’t speak their language. LesCs News exists to break down these barriers, making it possible for young people to absorb world news in a relaxed, everyday rhythm—enabling them to engage, form perspectives, and ultimately shape society.",
+        role:"Co-operator & Project Lead",
+        instagramUrls:[ { label:"LesCs News", url:"https://www.instagram.com/lescs.news/" } ],
+        achievements:[
+          "Built an Instagram following of 14,000+ across Taiwan, France, and the global Chinese-speaking community.",
+          "Maintained a consistent 5–7% engagement rate by using interactive, story-driven content to boost young audiences’ interest in global news.",
+          "Collaborated with other brand and organizations to complete 20+ cross-industry collaboration projects."
+        ]
+      },
+      { category:"brand", slug:"youthagora", title:"YouthAgora",
+        brandOverview:"YouthAgora is a youth engagement platform that integrates digital tools, cultural exchange, and civic education to empower young people to speak up, collaborate, and co-create at the intersection of local and global. We aim to ensure that youth issues move beyond discussion and become actionable change with tangible impact.",
+        whyWeDoIt:"Young generations have ideas and creativity but often lack access to decision-making spaces and public discourse. YouthAgora believes that when equipped with the right tools and platforms, youth can transcend geographical, cultural, and institutional boundaries to tackle the challenges shaping our future. We exist to make sure young people are not only heard but truly seen and taken seriously.",
+        role:"Founder",
+        instagramUrls:[ { label:"YouthAgora", url:"https://www.instagram.com/youthagora.studio_/" } ],
+        achievements:[
+          "Defined brand positioning and core values, establishing “Youth Creates What’s Next” as the key message.",
+          "Developed initial brand visual identity and digital platform framework.",
+          "Initiated early conversations with youth organizations in Taiwan and Europe to explore potential collaborations.",
+          "Selected for Taiwan’s “Youth Overseas Dream Realization Fund” under the D-2-6 European Affairs Rising Star program, advancing through the first-round screening and interview stage."
+        ]
+      },
+    ];
+
+    /* ===== 12 Business Projects（每個都帶 projectUrl；與 projects.html 對齊 slug） ===== */
+    const businessProjects = [
+      { category:"business", slug:"accor-bizdev", title:"Accor Boutique Hotel Digital Experience & Market Expansion Strategy",
+        industry:"Hospitality", company:"Accor Group",
+        description:"Developed a market entry strategy for Accor’s Adagio brand into the UK student housing sector. The project covered market research, competitor benchmarking, value proposition design, operational model planning, marketing strategy, and financial modeling. Focused on blending hotel-grade hospitality with long-stay student accommodation under the new “Adagio Campus” concept, incorporating sustainability and community engagement as core differentiators.",
+        projectUrl:"https://www.canva.com/design/DAGdSggPWQU/m6xJncexd4eolbpFIhOtzA/edit?utm_content=DAGdSggPWQU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Enter London Zone 2/3 PBSA market via an asset-light model.",
+          "Build brand differentiation through sustainability and community-driven experiences.",
+          "Increase Accor’s revenue growth and market penetration in a new segment.",
+          "Position Adagio Campus as the preferred accommodation choice for international students."
+        ],
+        tools:[
+          "Tools: Statista, Knight Frank Research, CBRE Research, Excel (financial modeling), Canva (strategy presentation).",
+          "Skills & Concepts: Market Analysis (TAM/SAM/SOM), Competitor Benchmarking, Asset-light Operational Model, Value Proposition Canvas, Sustainability Strategy (ESG & CSR Integration), Financial Evaluation (ROI, EBIT Margin), Brand Positioning & Marketing Strategy."
+        ]
+      },
+
+      { category:"business", slug:"intl-strategy", title:"Les Bougies de Charroux International Market Expansion & Brand Localization Strategy",
+        industry:"Fragrance / CPG", company:"Les Bougies de Charroux",
+        description:"Developed an international market entry strategy for Les Bougies de Charroux, a French artisanal scented candle brand, to expand into Japan. The project included market and consumer research, CAGE distance framework, PESTEL and Porter’s Diamond Model analysis, SWOT and competitive benchmarking, and the design of entry modes targeting Japan’s premium gifting and lifestyle market (pop-up store testing, flagship store, e-commerce platforms, and shopping mall presence).",
+        projectUrl:"https://www.canva.com/design/DAGiMw42mTE/tcqiuzJk5pnz7eYfTcRL2A/edit?utm_content=DAGiMw42mTE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Build brand awareness and premium positioning in Japan’s growing home fragrance market.",
+          "Leverage French craftsmanship and natural fragrance strengths to attract quality- and sustainability-conscious consumers",
+          "Mitigate cultural adaptation and regulatory risks while optimizing local supply chain partnerships.",
+          "Create a replicable market entry model for future expansion into other Asian markets."
+        ],
+        tools:[
+          "Tools: Statista, IMARC Group, Grand View Research, Excel (market data & financial estimation), Canva (strategy presentation).",
+          "Skills & Concepts: Market Entry Strategy, CAGE Framework, PESTEL Analysis, Porter’s Diamond Model, SWOT & Competitor Benchmarking, Cultural Adaptation Strategy, Brand Positioning, Retail Channel Planning, Risk Management & Mitigation.",
+        ]
+      },
+
+      { category:"business", slug:"supply-chain-walmart", title:"Walmart Workforce Optimization & Future HR Management Strategy",
+        industry:"Retail & Global Supply Chain Management", company:"Walmart",
+        description:"Developed an optimized staffing strategy for Walmart’s warehouse operations, analyzing the impact of Cross-Dock, Storage, and Hybrid models on labor requirements, process bottlenecks, and seasonal demand fluctuations. Proposed a hybrid warehousing approach integrated with selective automation to balance efficiency, flexibility, and risk management.",
+        projectUrl:"https://www.canva.com/design/DAGqtF6wJk0/EqWYHfbttgyUUq3ud1SuFg/edit?utm_content=DAGqtF6wJk0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Optimize workforce allocation to handle seasonal demand spikes (up to 40%).",
+          "Use a hybrid warehousing model to balance labor stability and throughput speed.",
+          "Reduce bottlenecks (especially Picking and Put-away) through targeted automation.",
+          "Build a scalable, flexible layered labor model for peak and off-peak periods."
+        ],
+        tools:[
+          "Tools: Excel (demand & labor simulation), Google Sheets (data analysis), Canva (strategy presentation).",
+          "Skills & Concepts: Supply Chain Strategy Design, Warehouse Operations Analysis (Cross-Dock/Storage/Hybrid), Process Bottleneck Identification, Demand Volatility & Seasonality Forecasting, Flexible Workforce Planning, Layered Labor Model Development, Process Automation Planning."
+        ]
+      },
+
+      { category:"business", slug:"saf", title:"SAF Sustainable Aviation Fuel Market Analysis & Value Chain Development Strategy",
+        industry:"Aerospace", company:"Confidential",
+        description:"Comprehensive analysis of decarbonization policies and SAF markets across regions; recommendations on partnerships and entry strategies aligned with frameworks such as EU ETS, CORSIA, and RefuelEU.",
+        projectUrl:"https://www.canva.com/design/DAGVs1NesX4/Po9HrteL5G3M5ukoneYvOQ/edit?utm_content=DAGVs1NesX4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Identify leading SAF markets and collaboration partners.",
+          "Assess policy impact on aerospace supply chains.",
+          "Recommend SKF-aligned partnership and entry strategies.",
+          "Leverage decarbonization to drive innovation and growth."
+        ],
+        tools:[
+          "Tools: ICAO/IATA resources, energy policy databases, Excel, Canva.",
+          "Skills & Concepts: Policy benchmarking, market assessment, partnership strategy, ESG."
+        ]
+      },
+
+      { category:"business", slug:"euronews", title:"Euronews Armenia Digital Multi-Platform Content & Brand Expansion Strategy",
+        industry:"International Media & Digital News", company:"Euronews",
+        description:"Multi-platform content & marketing plan for local and diaspora audiences, including short-video, podcasts, micro-news app, AI heritage archive, and voice assistant news.",
+        projectUrl:"https://drive.google.com/file/d/19M9Sdk3ckYmCkRd7nz5tNBMEiYS3Al5u/view?usp=sharing",
+        objectives:[
+          "Build brand presence among Armenians worldwide.",
+          "Deliver trustworthy, culturally connected content.",
+          "Increase engagement via multi-platform interaction.",
+          "Diversify revenue (ads, subs, partnerships, events)."
+        ],
+        tools:[
+          "Tools: Meta Ads, YouTube Studio, Podcast Analytics, GA, SEO tools.",
+          "Skills & Concepts: Content strategy, IMC, monetization, cross-cultural comms."
+        ]
+      },
+
+      { category:"business", slug:"cleanbeauty", title:"Clean Beauté • AI-Powered Skincare App",
+        industry:"Beauty & Digital Health Tech", company:"Clean Beauté",
+        description:"AI assistant for ingredient transparency and personalized skincare; features include dermatologist consults, education, and community.",
+        projectUrl:"https://www.canva.com/design/DAGYc97Rjc4/M7HHKO09348idzGf342L0A/edit?utm_content=DAGYc97Rjc4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Help sensitive-skin users find safe, effective products.",
+          "Promote ingredient transparency and education.",
+          "Build AI database to raise recommendation accuracy.",
+          "Monetize via ads, memberships, partnerships."
+        ],
+        tools:[
+          "Tools: Figma, GA, cloud hosting, social tools.",
+          "Skills & Concepts: MVP planning, AI recommendation, compliance, growth."
+        ]
+      },
+
+      { category:"business", slug:"branding", title:"Victoria’s Secret Rebranding & Social Impact Strategy",
+        industry:"Fashion Retail & Brand Management", company:"Victoria’s Secret",
+        description:"#CancerCareStalls initiative integrates breast self-exam awareness into everyday spaces with QR-based tutorials; aligned with inclusive brand repositioning.",
+        projectUrl:"https://www.canva.com/design/DAGnmw6lv44/z8RvhL7hmxOu7n6cQ9wRRw/edit?utm_content=DAGnmw6lv44&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Shift image toward inclusive authenticity.",
+          "Strengthen emotional connection & trust.",
+          "Leverage health advocacy for deeper relationships.",
+          "Promote early detection and social impact."
+        ],
+        tools:[
+          "Tools: Canva/AI, GA, Ads Manager; Brand Identity Prism.",
+          "Skills & Concepts: Repositioning, cause marketing, IMC, partnerships."
+        ]
+      },
+
+      { category:"business", slug:"hr", title:"Layoff Management • Balancing Strategy and Sustainability",
+        industry:"Human Resources Management", company:"Case Studies",
+        description:"Best practices across Netflix, Twitter(X), Dr. Reddy’s; focus on transparent comms, compliance, and culture preservation.",
+        projectUrl:"https://www.canva.com/design/DAGbtpKnAEA/sxYov0wGpjL_IpbWzFSmzA/edit?utm_content=DAGbtpKnAEA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Balance SHRM and Sustainable HRM during layoffs.",
+          "Reduce morale/reputation damage.",
+          "Maintain compliance and cultural integrity.",
+          "Improve adaptability post-restructuring."
+        ],
+        tools:[
+          "Tools: PowerPoint, Google Workspace.",
+          "Skills & Concepts: Change mgmt, comms, benchmarking, cross-cultural mgmt."
+        ]
+      },
+
+      { category:"business", slug:"fastfashioncsr", title:"CSR Challenges & Sustainability Transformation in the Fast Fashion Industry",
+        industry:"Fashion Retail & Sustainability", company:"Case Studies",
+        description:"Regulatory comparisons (EU/US/FR), labor/environment issues, greenwashing risk, and supply-chain governance improvements.",
+        projectUrl:"https://www.canva.com/design/DAGgrVaRkj0/rpXIgLkWIyDsC7I1nQYs_Q/edit?utm_content=DAGgrVaRkj0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "Identify gaps in CSR & sustainability practice.",
+          "Balance profitability, worker rights, environment.",
+          "Assess impact of regs & stakeholder pressure.",
+          "Promote transparency and harm reduction."
+        ],
+        tools:[
+          "Tools: Google Workspace, Excel, industry reports.",
+          "Skills & Concepts: CSR analysis, stakeholder mapping, circular economy."
+        ]
+      },
+
+      { category:"business", slug:"aichallenge", title:"AI-Powered Real-Time Expert Learning & Interaction Platform",
+        industry:"EdTech & AI", company:"Confidential",
+        description:"Human-in-the-loop AI platform combining verified expert content with contextual AI guidance for trustworthy learning.",
+        projectUrl:"https://www.canva.com/design/DAGV4d7A7Gg/UKKqd39Dr613-4eozxpSRw/edit?utm_content=DAGV4d7A7Gg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "On-demand access to expert knowledge.",
+          "Clarify complex topics via validated content.",
+          "Bridge AI gaps with human expertise.",
+          "Build sustainable knowledge community."
+        ],
+        tools:[
+          "Tools: Lean startup, MVP testing, analytics.",
+          "Skills & Concepts: HIL AI, contextual design, KPI setting, biz model."
+        ]
+      },
+
+      { category:"business", slug:"corporate-finance", title:"Nokia–Microsoft Strategic Partnership Financing Decision Analysis",
+        industry:"Mobile Communications & Consumer Electronics", company:"Nokia",
+        description:"Compared financing options (debt/equity/dividend/cash) to support turnaround while preserving credit and investor confidence.",
+        projectUrl:"https://docs.google.com/presentation/d/1n1hWAPKQbQ-ZVxpXjCCC8x2FtWNKamDN/edit?usp=drive_link&ouid=114482293387429937395&rtpof=true&sd=true",
+        objectives:[
+          "Align financing with transformation strategy.",
+          "Maintain flexibility and credit rating.",
+          "Stabilize capital structure and market signal.",
+          "Secure capital for execution."
+        ],
+        tools:[
+          "Tools: Excel models; ratio analysis.",
+          "Skills & Concepts: Capital structure, risk-return, financing mix design."
+        ]
+      },
+
+      { category:"business", slug:"partnership-strategy", title:"Partnership Strategy & Co-Marketing Playbook",
+        industry:"Business Development", company:"Confidential",
+        description:"ICP partner mapping, pitch materials, governance model, and co-marketing calendar to accelerate pipeline.",
+        projectUrl:"https://www.canva.com/your-link-partnership",
+        objectives:[
+          "Define ICP partners and sourcing channels.",
+          "Standardize partner pitches and toolkits.",
+          "Design governance & success metrics.",
+          "Build quarterly activation calendar."
+        ],
+        tools:[
+          "Tools: Canva, Sheets.",
+          "Skills & Concepts: BD pipeline, partner ops, measurement."
+        ]
+      },
+    ];
+
+    /* Self-hosted（含你的手寫個人網站） */
+    const selfHosted = [
+      { category:"selfhost", slug:"cyw-portfolio", title:"Yi Wei Chu Portfolio Website",
+        companyDescription:"Built with HTML5,CSS3 and Vanilla JS via Visual Studio Code.",
+        websiteUrl:null,
+        objectives:[
+          "Deliver a fast, minimal, and fully controllable personal site.",
+          "Showcase projects with clean UI and simple code structure."
+        ],
+        tools:["HTML5","CSS3", "Vanilla JS","Visual Studio Code"]
+      },
+      { category:"selfhost", slug:"enjade-site", title:"EnJade.fr Website",
+        role:"Founder & Product Owner",
+        companyDescription:"DTC Jewelry brand with AI Curator",
+        websiteUrl:"https://www.enjade.fr/",
+        objectives:[
+          "Launch official DTC sales channel with immersive brand storytelling",
+          "Implement SEO foundations to build long-term organic traffic",
+          "Integrate AI-powered product curator for personalized shopping",
+          "Enable first-party data capture for CRM and remarketing",
+          "Streamline merchandising updates for faster product iteration"
+        ],
+        tools:["Squarespace","GA","AI Chatbox","SEO"]
+      },
+      { category:"selfhost", slug:"top-credit-oversea", title:"Top Credit Oversea Co. Website",
+        role:"Project Manager",
+        companyDescription:"Textile manufacturer & trading company specializing in customized knitwear, apparel and home textiles, serving clients globally via both production and sourcing partnerships.",
+        websiteUrl:"https://topcreditoverseaco.wixsite.com/about",
+        objectives:[
+          "Establish a digital showroom to showcase textile and garment product lines with high-resolution visuals",
+          "Enable direct B2B inquiries with integrated RFQ (Request for Quote) form for global buyers",
+          "Capture first-party lead data for client follow-up and proactive outreach",
+          "Present company’s 30+ years of textile expertise to build trust and credibility"
+        ],
+        tools:["Wix"]
+      }
+    ];
+
+    const DATA = [...ownBrands, ...businessProjects, ...selfHosted];
+
+    /* ========= HELPERS ========= */
+    const qs = name => new URLSearchParams(window.location.search).get(name);
+    const el = html => { const t=document.createElement('template'); t.innerHTML=html.trim(); return t.content.firstChild; };
+    const list = arr => (!arr || !arr.length) ? '' : `<ul class="bullets">${arr.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+
+    /* ========= RENDER ========= */
+    const slug = qs('slug');
+    const project = DATA.find(p => p.slug === slug);
+
+    const titleEl = document.getElementById('title');
+    const subtitleEl = document.getElementById('subtitle');
+    const content = document.getElementById('content');
+
+    if(!project){
+      titleEl.textContent = 'Project not found';
+      subtitleEl.textContent = 'The slug in URL has no matching project. Please go back and try again.';
+    } else {
+      titleEl.textContent = project.title;
+
+      if(project.category === 'brand'){
+        subtitleEl.textContent = '';
+
+        // 1) Overview
+        content.appendChild(el(`
+          <section class="section">
+            <h2>Overview</h2>
+            <p>${project.brandOverview || '—'}</p>
+          </section>
+        `));
+
+        // 2) Why we do it（有填才顯示）
+        if (project.whyWeDoIt) {
+          content.appendChild(el(`
+            <section class="section">
+              <h2>Why we do it</h2>
+              <p>${project.whyWeDoIt}</p>
+            </section>
+          `));
+        }
+
+        // 3) My Role & Channels
+        content.appendChild(el(`
+          <section class="section">
+            <h2>My Role & Channels</h2>
+            <div class="kv">
+              <div><b>My Role</b></div><div>${project.role || '-'}</div>
+              <div><b>Brand Instagram</b></div>
+              <div>
+                ${(project.instagramUrls||[]).map(insta =>
+                  `<a class="link" href="${insta.url}" target="_blank" rel="noopener">${insta.label}</a>`
+                ).join('<br>') || '-'}
+              </div>
+              ${project.websiteUrl ? `<div><b>Website</b></div><div><a class="link" href="${project.websiteUrl}" target="_blank" rel="noopener">${project.websiteUrl}</a></div>` : ''}
+            </div>
+          </section>
+        `));
+
+        // 4) What we have achieved ?
+        content.appendChild(el(`
+          <section class="section">
+            <h2>What we have achieved ?</h2>
+            ${list(project.achievements)}
+          </section>
+        `));
+
+      } else {
+        // Business / Self-hosted
+        subtitleEl.textContent =
+          project.brandDescription || project.companyDescription || project.description || '';
+
+        // Overview（含 Project URL / Website）
+        content.appendChild(el(`
+          <section class="section">
+            <h2>Overview</h2>
+            <div class="kv">
+              <div><b>Category</b></div><div>${project.category}</div>
+              ${project.role ? `<div><b>My role</b></div><div>${project.role}</div>` : ''}
+              ${project.industry ? `<div><b>Industry</b></div><div>${project.industry}</div>` : ''}
+              ${project.company ? `<div><b>Company</b></div><div>${project.company}</div>` : ''}
+              ${project.projectUrl ? `<div><b>Project URL</b></div><div><a class="link" href="${project.projectUrl}" target="_blank" rel="noopener">View deck (Canva)</a></div>` : ''}
+              ${project.websiteUrl ? `<div><b>Website</b></div><div><a class="link" href="${project.websiteUrl}" target="_blank" rel="noopener">${project.websiteUrl}</a></div>` : ''}
+            </div>
+          </section>
+        `));
+
+        if(project.objectives) content.appendChild(el(`<section class="section"><h2>Objectives</h2>${list(project.objectives)}</section>`));
+        if(project.results) content.appendChild(el(`<section class="section"><h2>Results</h2>${list(project.results)}</section>`));
+        if(project.tools) content.appendChild(el(`<section class="section"><h2>Tools</h2>${list(project.tools)}</section>`));
+      }
+    }
+  </script>
+</body>
+</html>

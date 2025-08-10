@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Yi Wei Chu</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC","Helvetica Neue", Arial;
+      color: var(--text);
+    }
+    .wrap { padding: 24px 0 8px; }
+    .section {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .filters { display:flex; flex-wrap:wrap; gap:10px; margin: 10px 0 16px; }
+    .filter-btn {
+      padding: 6px 12px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      background:transparent;
+      cursor:pointer;
+      font-size:14px;
+    }
+    .filter-btn.active { background: rgba(255,255,255,.08); }
+
+    .grid {
+      display:grid;
+      gap:16px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 1080px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 680px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card {
+      position: relative;
+      background: var(--card);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+
+    .stretched-link {
+      position:absolute;
+      inset:0;
+      z-index:1;
+      text-indent:-9999px;
+      overflow:hidden;
+    }
+
+    /* 預設：16:9（Business/Self-host） */
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display:block;
+      background: rgba(255,255,255,.04);
+    }
+    /* Own Brand：1:1 正方形（logo-friendly） */
+    .thumb.square {
+      aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      object-fit: contain;
+      background: #fff;
+      padding: 10px;
+    }
+    .thumb.fallback {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .card-body { padding: 10px 12px; display:flex; flex-direction:column; gap:4px; position:relative; z-index:2; }
+    .row.split { display:flex; justify-content:space-between; gap:8px; align-items:center; }
+    h3 { margin:0; font-size:16px; line-height:1.3; }
+    .badge {
+      display:inline-block;
+      font-size:11px;
+      padding:2px 8px;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .subtitle {
+      margin:0;
+      font-size:14px;
+      color: var(--muted);
+      display:-webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      overflow:hidden;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Yi Wei Chu • Portfolio</a>
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1 class="page-title">Project Portfolio</h1>
+    </div>
+  </header>
+
+  <main class="container wrap">
+    <section class="section">
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="brand">Own Brands</button>
+        <button class="filter-btn" data-filter="business">Business Projects</button>
+        <button class="filter-btn" data-filter="selfhost">Self-hosted Websites</button>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container small">© 2025 Yi Wei Chu — All rights reserved.</div>
+  </footer>
+
+  <script>
+    /* ============ DATA ============ */
+    const ownBrands = [
+      { category:"brand", slug:"enjade", title:"EnJade",
+        thumbnail:"./images/projects/enjade.jpg",
+        tagline:"Jewelry DTC • Redefining jadeite as wearable art" },
+      { category:"brand", slug:"lescs-news", title:"LesCs News",
+        thumbnail:"./images/projects/lescs.jpg",
+        tagline:"News Media • Global news in the time of a coffee break" },
+      { category:"brand", slug:"youthagora", title:"YouthAgora",
+        thumbnail:"./images/projects/youthagora.jpg",
+        tagline:"Youth Engagement Platform • Youth Creates What’s Next" },
+    ];
+
+    /* 12 個 Business Projects（16:9 圖） */
+    const businessProjects = [
+      { category:"business", slug:"accor-bizdev", title:"Accor Boutique Hotel Digital Experience & Market Expansion Strategy",
+        thumbnail:"./images/projects/accor-bizdev.jpg",
+        tagline:"Hospitality • Business development strategy" },
+
+      { category:"business", slug:"intl-strategy", title:"Les Bougies de Charroux International Market Expansion & Brand Localization Strategy",
+        thumbnail:"./images/projects/intl-strategy.jpg",
+        tagline:"Fragrance • International expansion & GTM Strategy" },
+
+      { category:"business", slug:"supply-chain-walmart", title:"Walmart Workforce Optimization & Future HR Management Strategy",
+        thumbnail:"./images/projects/supply-chain-walmart.jpg",
+        tagline:"Retail • Global Supply Chain Management" },
+
+      { category:"business", slug:"saf", title:"SAF Sustainable Aviation Fuel Market Analysis & Value Chain Development Strategy",
+        thumbnail:"./images/projects/saf.jpg",
+        tagline:"Aerospace • Sustainable Aviation Fuel, SAF" },
+
+      { category:"business", slug:"euronews", title:"Euronews Armenia Digital Multi-Platform Content & Brand Expansion Strategy",
+        thumbnail:"./images/projects/euronews.jpg",
+        tagline:"Digital News • Digital Marketing & GTM Strategy" },
+
+      { category:"business", slug:"cleanbeauty", title:"Clean Beauté • AI-Powered Skincare App",
+        thumbnail:"./images/projects/cleanbeauty.jpg",
+        tagline:"Beauty & Digital Health Tech • AI-Powered Skincare App" },
+
+      { category:"business", slug:"branding", title:"Victoria’s Secret Rebranding & Social Impact Strategy",
+        thumbnail:"./images/projects/branding.jpg",
+        tagline:"Fashion Retail • Rebranding & Social Impact Strategy" },
+
+      { category:"business", slug:"hr", title:"Layoff Management • Balancing Strategy and Sustainability",
+        thumbnail:"./images/projects/hr.jpg",
+        tagline:"Product • Roadmap, MVP, validation loops" },
+
+      { category:"business", slug:"fastfashioncsr", title:"CSR Challenges & Sustainability Transformation in the Fast Fashion Industry",
+        thumbnail:"./images/projects/fastfashioncsr.jpg",
+        tagline:"Fashion Retail • CSR Challenges & Sustainability Transformation" },
+
+      { category:"business", slug:"aichallenge", title:"AI-Powered Real-Time Expert Learning & Interaction Platform",
+        thumbnail:"./images/projects/aichallenge.jpg",
+        tagline:"EdTech & Artificial Intelligence • AI-Powered Learning & Interaction Platform" },
+
+      { category:"business", slug:"corporate-finance", title:"Nokia–Microsoft Strategic Partnership Financing Decision Analysis",
+        thumbnail:"./images/projects/corporate-finance.jpg",
+        tagline:"Mobile Communications & Consumer Electronics • Strategic Partnership Financing Analysis" },
+
+      { category:"business", slug:"partnership-strategy", title:"Partnership Strategy & Co-Marketing Playbook",
+        thumbnail:"./images/projects/partnership-strategy.jpg",
+        tagline:"BD • Pipeline design, partner governance" },
+    ];
+
+    /* Self-hosted（16:9 圖） */
+    const selfHosted = [
+      { category:"selfhost", slug:"cyw-portfolio", title:"Yi Wei Chu Portfolio",
+        thumbnail:"./images/projects/cyw-portfolio.jpg",
+        tagline:"Hand-coded • HTML5 + CSS3 + Vanilla JS (no CMS)" },
+
+      { category:"selfhost", slug:"enjade-site", title:"EnJade.fr Website",
+        thumbnail:"./images/projects/enjade-site.jpg",
+        tagline:"Jewelry DTC Brand • AI Personalization" },
+
+      { category:"selfhost", slug:"top-credit-oversea", title:"Top Credit Oversea Website",
+        thumbnail:"./images/projects/top-credit-oversea.jpg",
+        tagline:"Textile Manufacturing & Sourcing" },
+    ];
+
+    const DATA = [...ownBrands, ...businessProjects, ...selfHosted];
+
+    /* ============ RENDER ============ */
+    const grid = document.getElementById('grid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    function categoryBadge(cat){
+      if(cat==='brand') return 'Own Brand';
+      if(cat==='business') return 'Business Project';
+      if(cat==='selfhost') return 'Self-hosted';
+      return '';
+    }
+
+    function imgOrFallback(src, alt, cat){
+      const extraClass = cat==='brand' ? 'square' : '';
+      if(!src) return `<div class="thumb fallback ${extraClass}">No Image</div>`;
+      const safeAlt = (alt || '').toString().replace(/"/g,'&quot;');
+      return `<img class="thumb ${extraClass}" src="${src}" alt="${safeAlt}" loading="lazy">`;
+    }
+
+    function renderCard(d){
+      return `
+        <article class="card" data-category="${d.category}">
+          <a class="stretched-link" href="project.html?slug=${encodeURIComponent(d.slug)}"></a>
+          ${imgOrFallback(d.thumbnail, d.title, d.category)}
+          <div class="card-body">
+            <div class="row split">
+              <h3>${d.title}</h3>
+              <span class="badge">${categoryBadge(d.category)}</span>
+            </div>
+            <p class="subtitle">${d.tagline || ''}</p>
+          </div>
+        </article>
+      `;
+    }
+
+    function render(filter='all'){
+      const items = DATA.filter(d => filter==='all' ? true : d.category===filter);
+      grid.innerHTML = items.length ? items.map(renderCard).join('') : `<div class="muted">No projects yet.</div>`;
+    }
+
+    filterBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        filterBtns.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        render(btn.dataset.filter);
+      });
+    });
+
+    render('all');
+  </script>
+</body>
+</html>

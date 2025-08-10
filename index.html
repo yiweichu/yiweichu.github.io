@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home | Yi Wei Chu</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* 僅針對本頁 Hero/CTA/Banner，避免影響 .nav */
+    .home-hero {
+      padding: 64px 0 32px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .home-kicker {
+      margin: 0 0 6px 0;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .home-headline {
+      margin: 0 0 16px 0; /* 讓 headline 與 kicker 中間空一行 */
+      font-size: 36px;
+      line-height: 1.25;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .home-actions {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;
+    }
+    .home-cta {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      background: var(--burgundy, #6B0F1A);
+      color: var(--cream, #F3E9DC);
+      border: 1px solid rgba(255,255,255,.12);
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    }
+    .home-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.25); }
+    .home-cta:active { transform: translateY(0); opacity: .9; }
+
+    .home-banner { padding: 28px 0 40px; }
+    .home-banner img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1740 / 360;
+      object-fit: cover;
+      border-radius: var(--radius, 12px);
+      border: 1px solid rgba(255,255,255,.12);
+      display: block;
+    }
+
+    @media (max-width: 720px){
+      .home-headline { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 導覽列（與其他頁面相同結構 & 由 style.css 控制樣式） -->
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">Yi Wei Chu • Portfolio</a>
+      <div class="links">
+        <a href="index.html" class="active">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero：左對齊標語 + 兩個快捷選項（不影響 .nav） -->
+  <header class="home-hero">
+    <div class="container">
+      <h1 class="home-headline">Strategy × Project Management × Brand</h1>
+      <p class="home-kicker">Shaping Brands with Strategy, Delivering Markets with Precision.</p>
+
+      <div class="home-actions">
+        <a class="home-cta" href="projects.html">My Project Portfolio</a>
+        <a class="home-cta" href="about.html">About Me</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 只放 Banner -->
+  <main>
+    <section class="home-banner">
+      <div class="container">
+        <!-- 請放置 1740x360 橫幅於 ./images/cyw-banner.jpg -->
+        <img src="./images/cyw-banner.jpg" alt="Yi Wei Chu banner">
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container small">© 2025 Yi Wei Chu — All rights reserved.</div>
+  </footer>
+</body>
+</html>

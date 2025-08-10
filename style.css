@@ -1,0 +1,203 @@
+/* ===== VeiVei — Professional & Calm Theme (Ivory / Gold / Burgundy / Hunter Green) ===== */
+:root{
+  /* Palette */
+  --bg:#F8F5F0;            /* Ivory 背景 */
+  --surface:#FFFFFF;       /* 白色面層（卡片） */
+  --card:#FFFFFF;
+  --border:#E9E4DB;        /* 柔和分隔線 */
+  --text:#1A1C1A;          /* 主文字：深墨色 */
+  --muted:#6F746F;         /* 次要文字：灰綠 */
+  --accent:#7B2F3E;        /* 強調：Burgundy 酒紅，用於CTA */
+  --accent-2:#2E4B3F;      /* 配平：Hunter Green 深綠，用於hover/次要按鈕 */
+  --gold:#C9A86A;          /* 質感金，用於邊框/icon/重點小件 */
+  --gold-ink:#6E5830;      /* 金色深墨，與金搭配的字色 */
+
+  /* Layout */
+  --maxw:980px;
+  --radius:16px;
+  --radius-sm:12px;
+  --space:24px;
+
+  /* Shadows */
+  --shadow-s:0 4px 12px rgba(0,0,0,.06);
+  --shadow-m:0 10px 24px rgba(0,0,0,.08);
+
+  /* Typography scale */
+  --h1:40px;
+  --h2:28px;
+  --h3:20px;
+  --body:16px;
+  --small:12px;
+
+  /* Motion */
+  --fast:150ms;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box}
+
+/* ===== 全站字型統一 ===== */
+html, body{
+  margin:0; padding:0;
+  font-family: "Inter", "Noto Sans TC", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 所有文字元素統一繼承字型 */
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, li, a, span, small, strong, em,
+button, input, textarea, select, label,
+.badge, .btn, .brand {
+  font-family: inherit;
+}
+
+h1{ font-weight: 700; font-size: var(--h1); letter-spacing: .2px; }
+h2{ font-weight: 700; font-size: var(--h2); letter-spacing: .2px; }
+h3{ font-weight: 600; font-size: var(--h3); letter-spacing: .2px; }
+
+.container{max-width:var(--maxw); margin:0 auto; padding:0 var(--space)}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky; top:0; z-index:10;
+  background:rgba(248,245,240,.85);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+.brand{
+  text-decoration:none; color:var(--text); font-weight:700;
+}
+.links a{
+  color:var(--muted); text-decoration:none; margin-left:16px; padding:6px 8px; border-radius:10px;
+  transition:color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+.links a:hover,.links a.active{
+  color:#fff; background:var(--accent);
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:64px 0 24px;
+  border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg, rgba(201,168,106,.18), rgba(255,255,255,0));
+}
+.muted{color:var(--muted)}
+.actions{margin-top:14px}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-block; padding:10px 14px; border-radius:10px;
+  background:var(--accent); color:#fff; font-weight:650; text-decoration:none; margin-right:8px;
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:var(--shadow-s);
+  transition:transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+.btn:hover{transform:translateY(-2px); box-shadow:var(--shadow-m)}
+.btn:active{transform:translateY(0)}
+.btn.secondary{
+  background:#fff; color:var(--accent-2);
+  border:1px solid var(--accent-2);
+}
+.btn.secondary:hover{
+  background:var(--accent-2); color:#fff; border-color:var(--accent-2);
+}
+.btn.tertiary{
+  background:transparent; color:var(--gold-ink);
+  border:1px solid var(--gold);
+}
+.btn.tertiary:hover{
+  background:rgba(201,168,106,.12);
+}
+
+/* Focus 可及性 */
+a:focus, button:focus, .btn:focus{
+  outline:3px solid rgba(43,94,78,.4);
+  outline-offset:2px;
+}
+
+/* ---------- Sections ---------- */
+.section{padding:24px 0}
+.section h2{margin:0 0 8px}
+.lead{color:var(--muted); margin-top:0}
+
+/* ---------- Cards ---------- */
+.grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr))
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  text-decoration:none; color:inherit;
+  transition:transform var(--fast) var(--ease), border-color var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+  box-shadow:var(--shadow-s);
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(201,168,106,.6);
+  box-shadow:var(--shadow-m);
+}
+.thumb{
+  height:150px;
+  background:
+    linear-gradient(135deg, rgba(46,75,63,.25), rgba(123,47,62,.25)),
+    linear-gradient(135deg, #EEE9E0, #F8F5F0);
+}
+img.thumb{width:100%; height:150px; object-fit:cover; display:block}
+.pad{padding:16px}
+.badge{
+  display:inline-block; font-size:12px; padding:2px 8px;
+  border:1px solid var(--gold); border-radius:999px;
+  color:var(--gold-ink); background:rgba(201,168,106,.08);
+  margin-right:6px
+}
+.small{font-size:12px; color:var(--muted)}
+
+/* ---------- Footer ---------- */
+.footer{
+  border-top:1px solid var(--border);
+  margin-top:32px; padding:24px 0; color:var(--muted)
+}
+
+/* ---------- Dark-mode ---------- */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#121315;
+    --surface:#181A1C;
+    --card:#181A1C;
+    --border:#2A2C2F;
+    --text:#EDEBE7;
+    --muted:#A8ADA6;
+    --accent:#93c5b1;
+    --accent-2:#C9A86A;
+  }
+  .nav{background:rgba(18,19,21,.7)}
+  .links a:hover,.links a.active{background:var(--accent); color:#0b0d0f}
+  .hero{background:linear-gradient(180deg, rgba(201,168,106,.18), rgba(18,19,21,0))}
+  .btn{color:#0b0d0f}
+  .btn.secondary{background:transparent; color:var(--text); border-color:rgba(255,255,255,.14)}
+  .badge{color:#D7C7A3; border-color:#D7C7A3; background:rgba(201,168,106,.12)}
+}
+:root{
+  --font-ui: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC",
+             "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+.page-title{
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.25;
+  letter-spacing: .005em;
+  margin: 0 0 8px 0;
+  color: var(--text);
+}
+@media (max-width: 720px){
+  .page-title{ font-size: 28px; }
+}
