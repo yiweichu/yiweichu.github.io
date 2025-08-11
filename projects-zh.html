@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Projects | Yi Wei Chu</title>
+  <title>專案作品集 | Yi Wei Chu</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     * {
@@ -63,7 +63,7 @@
       display:block;
       background: rgba(255,255,255,.04);
     }
-    /* Own Brand：1:1 正方形（logo-friendly） */
+    /* 自有品牌：1:1 正方形（logo-friendly） */
     .thumb.square {
       aspect-ratio: 1 / 1;
       border-radius: 12px;
@@ -101,7 +101,7 @@
       overflow:hidden;
     }
 
-    /* Language dropdown style (keep nav consistent across pages) */
+    /* 語言切換按鈕樣式（保持導覽列一致） */
     .lang-select {
       background: transparent;
       border: none;
@@ -114,17 +114,17 @@
 <body>
   <nav class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="index.html">Yi Wei Chu • Portfolio</a>
+      <a class="brand" href="index-zh.html">Yi Wei Chu • 作品集</a>
       <div class="links">
-        <a href="index.html">Home</a>
-        <a href="projects.html" class="active">Projects</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <!-- Language selector -->
+        <a href="index-zh.html">首頁</a>
+        <a href="projects-zh.html" class="active">專案</a>
+        <a href="about-zh.html">關於我</a>
+        <a href="contact-zh.html">聯絡我</a>
+        <!-- 語言切換 -->
         <select class="lang-select" onchange="location = this.value;">
-          <option value="">Language</option>
-          <option value="projects.html" selected>English</option>
-          <option value="projects-zh.html">中文</option>
+          <option value=""selected>Language</option>
+          <option value="projects.html">English</option>
+          <option value="projects-zh.html" >中文</option>
         </select>
       </div>
     </div>
@@ -132,17 +132,17 @@
 
   <header class="hero">
     <div class="container">
-      <h1 class="page-title">Project Portfolio</h1>
+      <h1 class="page-title">專案作品集</h1>
     </div>
   </header>
 
   <main class="container wrap">
     <section class="section">
       <div class="filters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="brand">Own Brands</button>
-        <button class="filter-btn" data-filter="business">Business Projects</button>
-        <button class="filter-btn" data-filter="selfhost">Self-hosted Websites</button>
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="brand">自有品牌</button>
+        <button class="filter-btn" data-filter="business">商業專案</button>
+        <button class="filter-btn" data-filter="selfhost">自架網站</button>
       </div>
       <div id="grid" class="grid"></div>
     </section>
@@ -153,102 +153,96 @@
   </footer>
 
   <script>
-    /* ============ DATA ============ */
+    /* ============ 資料 ============ */
     const ownBrands = [
       { category:"brand", slug:"enjade", title:"EnJade",
         thumbnail:"./images/projects/enjade.jpg",
-        tagline:"Jewelry DTC • Redefining jadeite as wearable art" },
+        tagline:"翡翠珠寶直營品牌 • 重新定義翡翠" },
       { category:"brand", slug:"lescs-news", title:"LesCs News",
         thumbnail:"./images/projects/lescs.jpg",
-        tagline:"News Media • Global news in the time of a coffee break" },
+        tagline:"新聞自媒體 • 借你一杯咖啡時間，掌握全球新聞脈動" },
       { category:"brand", slug:"youthagora", title:"YouthAgora",
         thumbnail:"./images/projects/youthagora.jpg",
-        tagline:"Youth Engagement Platform • Youth Creates What’s Next" },
+        tagline:"青年共享平台 • 協助青年共創未來" },
     ];
 
-    /* 12 個 Business Projects（16:9 圖） */
     const businessProjects = [
-      { category:"business", slug:"accor-bizdev", title:"Accor Boutique Hotel Digital Experience & Market Expansion Strategy",
+      { category:"business", slug:"accor-bizdev", title:"雅高精品酒店數位體驗與市場拓展策略",
         thumbnail:"./images/projects/accor-bizdev.jpg",
-        tagline:"Hospitality • Business development strategy" },
+        tagline:"酒店旅宿業 • 業務拓展策略" },
 
-      { category:"business", slug:"intl-strategy", title:"Les Bougies de Charroux International Market Expansion & Brand Localization Strategy",
+      { category:"business", slug:"intl-strategy", title:"Les Bougies de Charroux 國際市場拓展與品牌在地化策略",
         thumbnail:"./images/projects/intl-strategy.jpg",
-        tagline:"Fragrance • International expansion & GTM Strategy" },
+        tagline:"香氛 • 國際擴張與 GTM 策略" },
 
-      { category:"business", slug:"supply-chain-walmart", title:"Walmart Workforce Optimization & Future HR Management Strategy",
+      { category:"business", slug:"supply-chain-walmart", title:"沃爾瑪人力優化與未來人資管理策略",
         thumbnail:"./images/projects/supply-chain-walmart.jpg",
-        tagline:"Retail • Global Supply Chain Management" },
+        tagline:"零售業 • 全球供應鏈管理" },
 
-      { category:"business", slug:"saf", title:"SAF Sustainable Aviation Fuel Market Analysis & Value Chain Development Strategy",
+      { category:"business", slug:"saf", title:"永續航空燃料市場分析與價值鏈發展策略",
         thumbnail:"./images/projects/saf.jpg",
-        tagline:"Aerospace • Sustainable Aviation Fuel, SAF" },
+        tagline:"航太 • 永續航空燃料 SAF" },
 
-      { category:"business", slug:"euronews", title:"Euronews Armenia Digital Multi-Platform Content & Brand Expansion Strategy",
+      { category:"business", slug:"euronews", title:"Euronews 亞美尼亞數位多平台內容與品牌拓展策略",
         thumbnail:"./images/projects/euronews.jpg",
-        tagline:"Digital News • Digital Marketing & GTM Strategy" },
+        tagline:"數位新聞 • 數位行銷與 GTM 策略" },
 
-      { category:"business", slug:"cleanbeauty", title:"Clean Beauté • AI-Powered Skincare App",
+      { category:"business", slug:"cleanbeauty", title:"Clean Beauté • AI 驅動的護膚應用程式",
         thumbnail:"./images/projects/cleanbeauty.jpg",
-        tagline:"Beauty & Digital Health Tech • AI-Powered Skincare App" },
+        tagline:"美妝與數位健康科技 • AI 護膚應用" },
 
-      { category:"business", slug:"branding", title:"Victoria’s Secret Rebranding & Social Impact Strategy",
+      { category:"business", slug:"branding", title:"Victoria’s Secret 品牌重塑與社會影響策略",
         thumbnail:"./images/projects/branding.jpg",
-        tagline:"Fashion Retail • Rebranding & Social Impact Strategy" },
+        tagline:"時尚零售 • 品牌重塑與社會影響策略" },
 
-      { category:"business", slug:"hr", title:"Layoff Management • Balancing Strategy and Sustainability",
+      { category:"business", slug:"hr", title:"人力資源 • 平衡策略與永續性的離職管理方案",
         thumbnail:"./images/projects/hr.jpg",
-        tagline:"Product • Roadmap, MVP, validation loops" },
+        tagline:"人力資源管理 • 平衡策略與永續發展" },
 
-      { category:"business", slug:"fastfashioncsr", title:"CSR Challenges & Sustainability Transformation in the Fast Fashion Industry",
+      { category:"business", slug:"fastfashioncsr", title:"快時尚產業之企業社會責任現況與永續轉型策略",
         thumbnail:"./images/projects/fastfashioncsr.jpg",
-        tagline:"Fashion Retail • CSR Challenges & Sustainability Transformation" },
+        tagline:"時尚零售 • CSR 挑戰與永續轉型" },
 
-      { category:"business", slug:"aichallenge", title:"AI-Powered Real-Time Expert Learning & Interaction Platform",
+      { category:"business", slug:"aichallenge", title:"AI 驅動的即時專家學習與互動平台",
         thumbnail:"./images/projects/aichallenge.jpg",
-        tagline:"EdTech & Artificial Intelligence • AI-Powered Learning & Interaction Platform" },
+        tagline:"教育科技與人工智慧 • AI 學習與互動平台" },
 
-      { category:"business", slug:"corporate-finance", title:"Nokia–Microsoft Strategic Partnership Financing Decision Analysis",
+      { category:"business", slug:"corporate-finance", title:"Nokia–Microsoft 策略合作財務決策分析",
         thumbnail:"./images/projects/corporate-finance.jpg",
-        tagline:"Mobile Communications & Consumer Electronics • Strategic Partnership Financing Analysis" },
-      
-      { category:"business", slug:"performance-evaluation", title:"Airport Travel Retail Performance Evaluation & Enhancement Strategy",
+        tagline:"行動通訊與消費電子 • 策略合作財務分析" },
+        
+      { category:"business", slug:"performance-evaluation", title:"機場旅遊零售績效評估與提升策略",
         thumbnail:"./images/projects/performance-evaluation.jpg",
-        tagline:"Travel Retail • Performance Evaluation" },
+        tagline:"機場旅遊零售 • 績效評估與提升策略" },
 
     ];
 
-    /* Self-hosted（16:9 圖） */
     const selfHosted = [
-      { category:"selfhost", slug:"cyw-portfolio", title:"Yi Wei Chu Portfolio",
+      { category:"selfhost", slug:"cyw-portfolio", title:"Yi Wei Chu 個人網站",
         thumbnail:"./images/projects/cyw-portfolio.jpg",
-        tagline:"Hand-coded • HTML5 + CSS3 + Vanilla JS (no CMS)" },
+        tagline:"自寫程式 • HTML5 + CSS3 + Vanilla JS" },
 
-      { category:"selfhost", slug:"enjade-site", title:"EnJade.fr Website",
+      { category:"selfhost", slug:"enjade-site", title:"EnJade 翡翠品牌官方網站",
         thumbnail:"./images/projects/enjade-site.jpg",
-        tagline:"Jewelry DTC Brand • AI Personalization" },
+        tagline:"珠寶 DTC 網站 • 導入 AI 個人化推薦" },
 
-      { category:"selfhost", slug:"top-credit-oversea", title:"Top Credit Oversea Website",
+      { category:"selfhost", slug:"top-credit-oversea", title:"Top Credit Oversea 官方網站",
         thumbnail:"./images/projects/top-credit-oversea.jpg",
-        tagline:"Textile Manufacturing & Sourcing" },
+        tagline:"紡織品製造與貿易商" },
     ];
 
     const DATA = [...ownBrands, ...businessProjects, ...selfHosted];
 
-    /* ============ RENDER ============ */
-    const grid = document.getElementById('grid');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-
     function categoryBadge(cat){
-      if(cat==='brand') return 'Own Brand';
-      if(cat==='business') return 'Business Project';
-      if(cat==='selfhost') return 'Self-hosted';
+      if(cat==='brand') return '自有品牌';
+      if(cat==='business') return '商業專案';
+      if(cat==='selfhost') return '自架網站';
       return '';
     }
 
     function imgOrFallback(src, alt, cat){
       const extraClass = cat==='brand' ? 'square' : '';
-      if(!src) return `<div class="thumb fallback ${extraClass}">No Image</div>`;
+      if(!src) return `<div class="thumb fallback ${extraClass}">無圖片</div>`;
       const safeAlt = (alt || '').toString().replace(/"/g,'&quot;');
       return `<img class="thumb ${extraClass}" src="${src}" alt="${safeAlt}" loading="lazy">`;
     }
@@ -256,7 +250,7 @@
     function renderCard(d){
       return `
         <article class="card" data-category="${d.category}">
-          <a class="stretched-link" href="project.html?slug=${encodeURIComponent(d.slug)}"></a>
+          <a class="stretched-link" href="project-zh.html?slug=${encodeURIComponent(d.slug)}"></a>
           ${imgOrFallback(d.thumbnail, d.title, d.category)}
           <div class="card-body">
             <div class="row split">
@@ -271,9 +265,11 @@
 
     function render(filter='all'){
       const items = DATA.filter(d => filter==='all' ? true : d.category===filter);
-      grid.innerHTML = items.length ? items.map(renderCard).join('') : `<div class="muted">No projects yet.</div>`;
+      grid.innerHTML = items.length ? items.map(renderCard).join('') : `<div class="muted">暫無專案。</div>`;
     }
 
+    const grid = document.getElementById('grid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn=>{
       btn.addEventListener('click', ()=>{
         filterBtns.forEach(b=>b.classList.remove('active'));

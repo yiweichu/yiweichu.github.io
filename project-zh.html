@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>專案 | Yi Wei Chu</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC","Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+    }
+    .wrap { padding: 24px 0 8px; }
+    .section { background: var(--card); border: 1px solid rgba(255,255,255,.10); border-radius: var(--radius); padding: 18px; margin-bottom: 16px; }
+    .muted { color: var(--muted); }
+    .breadcrumbs { font-size: 14px; margin-bottom: 8px; }
+    .kv { display:grid; grid-template-columns: 160px 1fr; gap:10px; }
+    .link { text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.35); }
+    .bullets { margin: 6px 0 0 18px; }
+    .bullets li { margin: 4px 0; }
+    @media (max-width: 800px){ .kv{ grid-template-columns: 1fr; } }
+
+    /* 語言下拉（與其他頁一致） */
+    .lang-select {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index-zh.html">Yi Wei Chu • 作品集</a>
+      <div class="links">
+        <a href="index-zh.html">首頁</a>
+        <a href="projects-zh.html">專案</a>
+        <a href="about-zh.html">關於我</a>
+        <a href="contact-zh.html">聯絡我</a>
+        <!-- 語言切換（保留 ?slug= 參數） -->
+        <select class="lang-select" onchange="(function(sel){
+          var params=new URLSearchParams(location.search);var slug=params.get('slug')||'';
+          var q=slug?('?slug='+encodeURIComponent(slug)):'';
+          location.href = sel.value==='en' ? ('project.html'+q) : ('project-zh.html'+q);
+        })(this)">
+          <option value=""selected>Language</option>
+          <option value="en">English</option>
+          <option value="zh" >中文</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="breadcrumbs"><a class="link" href="projects-zh.html">← 返回專案列表</a></div>
+      <h1 id="title">專案</h1>
+      <p class="muted" id="subtitle"></p>
+    </div>
+  </header>
+
+  <main class="container wrap" id="content"></main>
+
+  <footer class="footer">
+    <div class="container small">© 2025 Yi Wei Chu — All rights reserved.</div>
+  </footer>
+
+  <script>
+    /* ========= DATA（slug 與英文版保持一致） ========= */
+    const ownBrands = [
+      { category:"brand", slug:"enjade", title:"EnJade",
+        brandOverview:"EnJade 是一個重新詮釋翡翠的珠寶品牌，將其視為文化載體與藝術表達的媒介。每件作品都擁有專屬故事，化為情感、文化與個人經驗的延伸。我們將東方的翡翠美學與西方的敘事藝術相融合，打破「老氣、昂貴、難以親近」的舊有印象，讓翡翠成為當代可穿戴藝術與自我表達的載體。",
+        whyWeDoIt:"在主流珠寶市場中，翡翠長期被侷限於傳統價值與刻板印象。然而，翡翠蘊藏著跨越時代的文化意義與深厚情感。EnJade 的使命，就是突破這些藩籬，讓翡翠以平易近人、具時代感且富有藝術性的形式走進現代生活，成為述說個人故事與文化對話的媒介。",
+        role:"創辦人暨企業策略",
+        instagramUrls:[
+          { label:"Instagram France", url:"https://www.instagram.com/enjade.fr/" },
+          { label:"Instagram Taiwan", url:"https://www.instagram.com/en.jade_/" }
+        ],
+        websiteUrl:"https://www.enjade.fr/",
+        achievements:[
+          "Instagram 從 0 成長至 2,000+ 追蹤者，六個月即創造月 €14K+ 營收",
+          "網店轉換率達 2%+；客單價由 €160 提升至 €200",
+          "利用 Squarespace 架設網站並結合 GA 以及 SEO 優化",
+          "官網導入 AI Curator，以智能化、故事導向的方式提供個人化翡翠推薦"
+        ]
+      },
+      { category:"brand", slug:"lescs-news", title:"LesCs News",
+        brandOverview:"LesCs News 是一個以青年為核心的公民自媒體平台，圍繞著一個簡單理念:「一杯咖啡的時間，就能獲得 1 c.c. 的國際新聞」。我們將國際與公共議題轉化為精簡、易懂且富有故事性的內容，結合新聞專業與社群文化，提高年輕人對世界的關注，並找到與自身的連結。",
+        whyWeDoIt:"在資訊爆炸與知識落差擴大的時代，青年聲音往往缺席於全球對話，因為主流媒體無法用他們的語言溝通。LesCs News 致力於打破這些障礙，讓年輕人在輕鬆的日常節奏中吸收國際新聞，從而參與討論、形成觀點，並最終影響社會。",
+        role:"共同創辦人",
+        instagramUrls:[ { label:"LesCs News", url:"https://www.instagram.com/lescs.news/" } ],
+        achievements:[
+          "在台灣、法國與全球華語社群累積超過 14,000 名 Instagram 追蹤者",
+          "透過互動式、故事驅動內容，維持穩定 5–7% 的互動率，提升青年對國際新聞的興趣",
+          "與品牌與組織合作完成 20+ 跨產業協作專案"
+        ]
+      },
+      { category:"brand", slug:"youthagora", title:"YouthAgora",
+        brandOverview:"YouthAgora 將會是一個結合數位工具、文化交流與公民教育的青年參與平台，旨在促進年輕人發聲、合作與共創，連結在地與國際。我們希望確保青年議題不僅停留在討論層面，而是化為可執行、具體可見的改變。",
+        whyWeDoIt:"新世代擁有創意與想法，卻常缺乏進入決策空間與公共對話的機會。YouthAgora 相信，只要擁有合適的工具與平台，青年便能跨越地理、文化與制度的界限，共同解決影響未來的挑戰。我們的存在，就是要讓青年不僅被聽見，更被真正看見並受到重視。",
+        role:"創辦人暨品牌策略",
+        instagramUrls:[ { label:"YouthAgora", url:"https://www.instagram.com/youthagora.studio_/" } ],
+        achievements:[
+          "建立初步品牌視覺識別與數位平台架構",
+          "明確品牌定位與核心價值，確立「Youth Creates What’s Next」作為關鍵訊息",
+          "與台灣與歐洲的青年組織展開初步合作對話",
+          "入選台灣「青年海外築夢計畫」D-2-6 歐洲事務新星計畫，通過第一輪書審與面試階段"
+        ]
+      },
+    ];
+
+    /* ===== 12 Business Projects（slug 與英文版對齊） ===== */
+    const businessProjects = [
+      { category:"business", slug:"accor-bizdev", title:"雅高精品酒店數位體驗與市場拓展策略",
+        industry:"酒店旅宿業", company:"Accor Group",
+        description:"為雅高集團（Accor）旗下 Adagio 品牌設計進軍英國學生住宿市場的策略方案。專案涵蓋市場調研、競爭者分析、價值主張設計、營運模式規劃、行銷策略與財務模型，並聚焦可持續發展與社群共融，打造結合飯店式服務與長租學生公寓的混合型產品 Adagio Campus。",
+        projectUrl:"https://www.canva.com/design/DAGdSggPWQU/m6xJncexd4eolbpFIhOtzA/edit?utm_content=DAGdSggPWQU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "藉由資產輕量化模式切入倫敦 Zone 2/3 學生住宿市場",
+          "以可持續性與社群體驗為核心，建立品牌差異化",
+          "提升雅高在新市場的營收成長與品牌滲透率",
+          "將 Adagio Campus 打造成國際學生首選住宿品牌"
+        ],
+        tools:[
+          "工具：Statista、Knight Frank Research、CBRE Research、Excel 財務模型、Canva 策略簡報",
+          "技能與概念：市場分析（TAM/SAM/SOM）、競爭者 Benchmark、資產輕量化營運模式（Asset-light model）、價值主張設計（Value Proposition Canvas）、可持續策略制定（ESG & CSR Integration）、財務評估（ROI、EBIT Margin）、品牌定位與行銷策劃"
+        ]
+      },
+
+      { category:"business", slug:"intl-strategy", title:"Les Bougies de Charroux 國際市場拓展與品牌在地化策略",
+        industry:"家居香氛與生活用品", company:"Les Bougies de Charroux",
+        description:"為法國手工香氛蠟燭品牌 Les Bougies de Charroux 制定進入日本市場的國際擴張策略。內容涵蓋市場與消費者分析、CAGE 距離分析、PESTEL 與波特鑽石模型應用、SWOT 與競品對標，以及針對日本高端禮品與生活方式市場的進入模式設計（快閃店測試、旗艦店、電商平台、購物中心佈局）。",
+        projectUrl:"https://www.canva.com/design/DAGiMw42mTE/tcqiuzJk5pnz7eYfTcRL2A/edit?utm_content=DAGiMw42mTE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "在日本建立品牌知名度與高端定位，切入高成長的家居香氛市場",
+          "利用品牌法式工藝與天然香氛優勢，吸引重視品質與可持續性的消費者",
+          "減低文化適應與法規風險，優化供應鏈與在地合作",
+          "建立可複製的市場進入模式，以利後續拓展亞洲其他市場"
+        ],
+        tools:[
+          "工具：Statista、IMARC Group、Grand View Research、Excel（市場數據與財務估算）、Canva（策略簡報）",
+          "技能與概念：市場進入策略（Market Entry Strategy）、CAGE 分析、PESTEL、波特鑽石模型（Porter’s Diamond Model）、SWOT 與競爭者分析、文化適應策略、品牌定位、零售通路規劃、風險管理與緩解措施",
+        ]
+      },
+
+      { category:"business", slug:"supply-chain-walmart", title:"沃爾瑪人力優化與未來人資管理策略",
+        industry:"零售與全球供應鏈管理", company:"沃爾瑪(Walmart)",
+        description:"為 Walmart 倉儲運營設計最佳人力配置方案，分析 Cross-Dock、Storage 與 Hybrid 倉儲模式對人力需求、流程瓶頸及季節性波動的影響，並提出混合模式與自動化結合的勞動力策略，以兼顧效率、靈活性與風險控管。",
+        projectUrl:"https://www.canva.com/design/DAGqtF6wJk0/EqWYHfbttgyUUq3ud1SuFg/edit?utm_content=DAGqtF6wJk0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "優化人力配置以應對高峰期需求波動（最高可達 40%）",
+          "藉由混合倉儲模式平衡勞動力穩定性與處理速度",
+          "藉助自動化減少瓶頸環節（尤其是 Picking 與 Put-away）",
+          "建立可擴展、具彈性的季節性勞動力層級模型"
+        ],
+        tools:[
+          "Tools: Excel (demand & labor simulation), Google Sheets (data analysis), Canva (strategy presentation).",
+          "Skills & Concepts: Supply Chain Strategy Design, Warehouse Operations Analysis (Cross-Dock/Storage/Hybrid), Process Bottleneck Identification, Demand Volatility & Seasonality Forecasting, Flexible Workforce Planning, Layered Labor Model Development, Process Automation Planning."
+        ]
+      },
+
+      { category:"business", slug:"saf", title:"永續航空燃料市場分析與價值鏈發展策略",
+        industry:"航空航太產業", company:"法國航空(Air France)",
+        description:"針對全球航空航太產業的減碳趨勢與永續航空燃料（SAF）政策進行研究與比較，分析主要國家與區域的法規、投資規模、採用進度及市場機會，並針對 SKF 如何與最具影響力的減碳組織建立商業合作提出策略建議。研究涵蓋歐盟 ETS、CORSIA、RefuelEU、SAF Grand Challenge 等政策框架，以及美國、歐洲與亞洲主要國家的市場動向與領導企業。",
+        projectUrl:"https://www.canva.com/design/DAGVs1NesX4/Po9HrteL5G3M5ukoneYvOQ/edit?utm_content=DAGVs1NesX4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "識別全球 SAF 發展領先市場與高潛力合作夥伴",
+          "分析主要國家與地區的減碳法規對航空航太供應鏈的影響",
+          "提出 SKF 進入 SAF 相關供應鏈的策略與合作模式",
+          "掌握產業減碳趨勢，促進技術創新與市場機會"
+        ],
+        tools:[
+          "工具：國際能源與政策資料庫、ICAO 與 IATA 資料、Excel（數據整理與比較）、Canva（策略簡報）",
+          "技能與概念：國際市場與法規分析、政策比較研究、永續航空燃料（SAF）市場評估、產業趨勢分析、合作夥伴策略規劃、減碳與 ESG 策略制定"
+        ]
+      },
+
+      { category:"business", slug:"euronews", title:"Euronews 亞美尼亞數位多平台內容與品牌拓展策略",
+        industry:"國際媒體與數位新聞平台", company:"歐洲新聞台(Euronews)",
+        description:"為 Euronews 設計專屬於亞美尼亞及其全球僑民社群的數位與多媒體策略，推出 Euronews Armenia 多平台內容方案，包括短影音頻道（Barev by Euronews）、與亞美尼亞影響力人物合作的 Podcast（Barev.Talks）、行動新聞應用（Shorties）、AI 驅動的亞美尼亞數位文化檔案，以及智慧語音助理新聞服務。策略涵蓋市場分析、目標受眾研究、價值主張設計、行銷與變現模式規劃。",
+        projectUrl:"https://drive.google.com/file/d/19M9Sdk3ckYmCkRd7nz5tNBMEiYS3Al5u/view?usp=sharing",
+        objectives:[
+          "建立 Euronews 在亞美尼亞與全球亞美尼亞僑民間的品牌影響力",
+          "提供可信、易於取得且具文化連結的新聞與內容",
+          "透過多平台內容與互動模式提升用戶參與度與黏著度",
+          "創造多元變現模式（廣告、訂閱、合作與活動贊助）"
+        ],
+        tools:[
+          "工具：Meta Ads、YouTube Studio、Spotify & Apple Podcast Analytics、Google Analytics、SEO 工具、Canva / Adobe Creative Suite",
+          "技能與概念：市場與受眾分析、內容策略設計、多平台營運（影音、Podcast、App）、價值主張設計、社群媒體行銷、品牌定位、變現策略規劃、跨文化溝通"
+        ]
+      },
+
+      { category:"business", slug:"cleanbeauty", title:"Clean Beauté • AI 驅動的護膚應用程式",
+        industry:"美妝與數位健康科技", company:"Clean Beauté",
+        description:"開發一款專為敏感肌族群設計的 Clean Beauté 行動應用程式，結合 AI 成分分析與個人化產品推薦，提供透明、安全的護膚資訊。平台功能包括 AI Clean Buddy 即時建議、皮膚科醫師線上諮詢、成分影響教育，以及使用者社群互動，並針對亞洲潮濕氣候市場進行早期導入。",
+        projectUrl:"https://www.canva.com/design/DAGYc97Rjc4/M7HHKO09348idzGf342L0A/edit?utm_content=DAGYc97Rjc4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "協助敏感肌消費者快速找到安全、有效的護膚產品",
+          "推動成分透明化與護膚知識普及",
+          "建立 AI 驅動的專屬肌膚資料庫以提升推薦精準度",
+          "創造多元變現模式（廣告、會員制、品牌合作、Freemium）"
+        ],
+        tools:[
+          "工具：Figma（UI/UX 設計）、Google Analytics（用戶數據分析）、AWS / 雲端服務（後端架構）、社群媒體行銷工具（Meta Ads、Instagram Insights）",
+          "技能與概念：市場分析與定位、產品開發規劃（MVP 到擴展）、AI 成分辨識與推薦系統設計、醫療與法規合規性研究、品牌合作與變現策略、數位行銷與用戶增長"
+        ]
+      },
+
+      { category:"business", slug:"branding", title:"Victoria’s Secret 品牌重塑與社會影響策略",
+        industry:"時尚零售與品牌管理", company:"Victoria’s Secret",
+        description:"針對 Victoria’s Secret 長期面臨的身體形象爭議與市場下滑，進行品牌重塑策略設計與社會責任導向的行動方案提案。專案以 #CancerCareStalls 為核心，將乳癌自我檢測融入日常生活空間（如試衣間、辦公室洗手間），結合 QR code 手機應用程式，提供教學影片、定期提醒及資源連結，並與癌症協會合作建立專線支援。透過產品策略、品牌形象轉型及多元包容訊息，提升消費者信任與品牌長期價值。",
+        projectUrl:"https://www.canva.com/design/DAGnmw6lv44/z8RvhL7hmxOu7n6cQ9wRRw/edit?utm_content=DAGnmw6lv44&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "改善品牌形象，從單一性感標準轉向多元包容與真實女性故事",
+          "增加消費者對品牌的情感連結與信任度",
+          "借由健康倡議，建立品牌與顧客間更深層的關係",
+          "促進乳癌早期檢測的社會影響力"
+        ],
+        tools:[
+          "工具：Canva / Adobe Illustrator（行銷物設計）、Google Analytics（受眾洞察分析）、社群媒體廣告平台（Meta Ads Manager）、品牌識別模型（Brand Identity Prism）",
+          "技能與概念：品牌再定位策略、社會影響力行銷（Cause Marketing）、競品分析（Benchmarking）、整合行銷溝通（IMC）、顧客旅程設計（Customer Journey Mapping）、跨產業合作策略"
+        ]
+      },
+
+      { category:"business", slug:"hr", title:"人力資源 • 平衡策略與永續性的離職管理方案",
+        industry:"人力資源管理", company:"個案研究",
+        description:"針對企業在進行裁員時如何平衡 策略性人力資源管理（Strategic HRM） 與 永續性人力資源管理（Sustainable HRM） 進行分析與案例研究，探討 Netflix、Twitter（X）與 Dr. Reddy’s Laboratories 在裁員過程中的做法、成效與爭議，並提出可行的管理建議。專案涵蓋規劃、執行與後續管理三階段，強調透明溝通、員工關懷、合法合規與組織文化維護的重要性。",
+        projectUrl:"https://www.canva.com/design/DAGbtpKnAEA/sxYov0wGpjL_IpbWzFSmzA/edit?utm_content=DAGbtpKnAEA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "分析不同企業在裁員管理中的策略與永續性表現",
+          "提出平衡業務需求與員工福祉的裁員管理建議",
+          "降低裁員對公司聲譽、內部士氣與組織信任的負面影響",
+          "強化企業在全球化與數位化背景下的人力資源應變能力"
+        ],
+        tools:[
+          "工具：Canva（簡報製作與案例比較）、Google Workspace（協作與文件整理）、案例分析框架（Benchmarking、Best Practices）",
+          "技能與概念：策略性與永續性人資管理、裁員規劃與風險評估、變革管理、組織溝通技巧、跨文化管理、勞動法規遵循"
+        ]
+      },
+
+      { category:"business", slug:"fastfashioncsr", title:"快時尚產業之企業社會責任現況與永續轉型策略",
+        industry:"時尚零售與永續發展", company:"快時尚品牌",
+        description:"本專案針對快速時尚產業的企業社會責任（CSR）挑戰與永續發展策略進行研究與分析。內容涵蓋勞動條件、環境污染、消費者行為與過度消費等核心議題，並評估主要品牌的政策承諾、供應鏈透明度與實際行動差距。透過對歐盟、美國及地方法規（如 EU Ecodesign、U.S. FABRIC Act、法國快時尚法案等）的比較，提出從政策、治理到供應鏈管理的改善建議，並探討如何避免「漂綠」（Greenwashing）以實現真正的永續轉型。",
+        projectUrl:"https://www.canva.com/design/DAGgrVaRkj0/rpXIgLkWIyDsC7I1nQYs_Q/edit?utm_content=DAGgrVaRkj0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "識別快速時尚產業在 CSR 與永續目標上的主要缺口",
+          "提出品牌在平衡獲利、員工權益與環境保護間的具體策略",
+          "分析法規與利害關係人對企業永續行動的影響",
+          "提升產業透明度並降低環境與社會負面影響"
+        ],
+        tools:[
+          "工具：Google Workspace（協作與簡報）、Excel（數據整理）、行業資料庫（Market & Policy Reports）",
+          "技能與概念：企業社會責任（CSR）分析、利害關係人分析（Stakeholder Mapping）、法規比較分析、永續供應鏈管理、綠色行銷與漂綠辨識、循環經濟策略"
+        ]
+      },
+
+      { category:"business", slug:"aichallenge", title:"AI 驅動的即時專家學習與互動平台",
+        industry:"教育科技與人工智慧", company:"Confidential",
+        description:"本專案旨在開發一個融合 AI 與人類專家的混合式學習平台，解決學習者在自學過程中遇到的資訊不可靠、AI 回答不精準以及缺乏即時專家指導的痛點。平台透過 AI 助手提供即時、具情境化的解答，同時由驗證過的專家提供專業知識與實務見解，確保學習者獲得高品質、可信賴的知識來源。",
+        projectUrl:"https://www.canva.com/design/DAGV4d7A7Gg/UKKqd39Dr613-4eozxpSRw/edit?utm_content=DAGV4d7A7Gg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "消除專業指導的障礙，讓學習者可隨時隨地獲得專家知識",
+          "支援深度自學，幫助學習者釐清疑難並掌握複雜議題",
+          "強化 AI 與專家之間的互補優勢，提升回應精準度與實用性",
+          "建立可持續的知識共享與專業社群，促進教育影響力與市場價值"
+        ],
+        tools:[
+          "工具：Lean Startup Methodology、MVP 開發、用戶測試與數據分析",
+          "技術概念：人機協作 (Human-in-the-Loop AI)、情境化回應設計、知識驗證機制",
+          "專案技能：需求分析、快速原型設計、KPI 制定與追蹤、商業模式設計"
+        ]
+      },
+
+      { category:"business", slug:"corporate-finance", title:"Nokia–Microsoft 策略合作財務決策分析",
+        industry:"行動通訊與消費電子產業", company:"Nokia",
+        description:"本專案針對 Nokia 與 Microsoft 的策略合作背景下，分析公司在面臨市場份額下降、競爭加劇與財務壓力下的融資需求，並評估多種資金籌措方案（發行長期債券、增發股權、削減股息、減少現金儲備）的優缺點，提出最適融資組合建議以支持轉型策略的落實。",
+        projectUrl:"https://docs.google.com/presentation/d/1n1hWAPKQbQ-ZVxpXjCCC8x2FtWNKamDN/edit?usp=drive_link&ouid=114482293387429937395&rtpof=true&sd=true",
+        objectives:[
+          "重新評估財務政策以支撐廣泛的策略轉型計畫",
+          "平衡外部融資需求與財務靈活性",
+          "在維持信用評級與投資者信心的同時確保資金充足",
+          "制定兼顧資本結構穩定性與市場訊號的融資組合"
+        ],
+        tools:[
+          "財務分析工具：Excel（損益表、資產負債表、現金流量表預測）、比率分析（Debt/EBITDA、EPS、Cash-to-Sales Ratio）",
+          "概念與技能：SWOT 分析、資本結構理論、融資策略比較、風險與報酬權衡、信用評級影響分析、策略性融資組合設計"
+        ]
+      },
+
+      { category:"business", slug:"performance-evaluation", title:"機場旅遊零售績效評估與提升策略",
+        industry:"旅遊零售與航空服務", company:"Aélia",
+        description:"本專案以巴黎戴高樂機場及其主要航空公司為背景，為 Aélia 旅遊零售商設計一套績效管理系統（Performance Management System, PMS），以爭取 5 年特許經營權並提升品牌在機場與航空合作夥伴間的競爭力。策略核心結合 高銷售額、強夥伴關係、永續經營，並透過平衡計分卡（Balanced Scorecard）規劃財務、顧客、內部流程及學習成長面向的目標與 KPI。",
+        projectUrl:"https://www.canva.com/design/DAGgH_qmoro/ZDC4EjHnTOVZvXwTCZflKQ/edit?utm_content=DAGgH_qmoro&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
+        objectives:[
+          "提高每位旅客銷售額（SPP），最大化機場與航空公司佣金與分紅",
+          "提升旅客購物體驗，將機場定位為高端購物目的地",
+          "建立與機場及航空公司的長期合作夥伴關係",
+          "推動永續經營與企業社會責任，維護品牌形象"
+        ],
+        tools:[
+          "分析工具：Balanced Scorecard、KPI 設定與績效追蹤、顧客回饋系統",
+          "商業概念：旅遊零售管理、夥伴關係管理、永續策略設計",
+          "專案技能：績效管理系統設計、財務與營運數據分析、轉化率與效率優化"
+        ]
+      },
+    ];
+
+    /* 自架網站（與英文版一致） */
+    const selfHosted = [
+      { category:"selfhost", slug:"cyw-portfolio", title:"Yi Wei Chu 個人網站",
+        companyDescription:"自建個人網站 • HTML5 + CSS3 + Vanilla JS + Visual Studio Code",
+        websiteUrl:null,
+        objectives:[
+          "建立快速、極簡且完全可控的個人網站",
+          "展示專案作品，採用乾淨俐落的介面設計與簡潔的程式結構"
+        ],
+        tools:["HTML5","CSS3", "Vanilla JS","Visual Studio Code"]
+      },
+      { category:"selfhost", slug:"enjade-site", title:"EnJade.fr Website",
+        role:"創辦人暨企業策略",
+        companyDescription:"直營珠寶品牌導入 AI 智能化推薦系統，專注於翡翠現代化設計與故事化行銷",
+        websiteUrl:"https://www.enjade.fr/",
+        objectives:[
+          "上線官方直營銷售渠道，結合沉浸式品牌故事行銷",
+          "建立 SEO 基礎，打造長期自然流量",
+          "整合 AI 智能化推薦系統，提升個人化購物體驗",
+          "實現第一方數據收集，未來可用於 CRM 與再行銷",
+          "精簡商品陳列更新流程，加速產品迭代"
+        ],
+        tools:["Squarespace","GA","AI Chatbox","SEO"]
+      },
+      { category:"selfhost", slug:"top-credit-oversea", title:"Top Credit Oversea Co. Website",
+        role:"專案經理",
+        companyDescription:"專注於訂製家用紡織品的製造與貿易公司（透過生產與採購合作模式，為全球客戶提供服務）",
+        websiteUrl:"https://topcreditoverseaco.wixsite.com/about",
+        objectives:[
+          "建立數位展廳，以高解析度視覺展示紡織產品",
+          "整合 RFQ（詢價單）功能，支援全球買家直接發送 B2B 詢問",
+          "收集第一方潛在客戶資料，用於後續跟進與主動開發",
+          "呈現公司 30+ 年紡織專業，強化信任感與品牌公信力"
+        ],
+        tools:["Wix"]
+      }
+    ];
+
+    const DATA = [...ownBrands, ...businessProjects, ...selfHosted];
+
+    /* ========= HELPERS ========= */
+    const qs = name => new URLSearchParams(window.location.search).get(name);
+    const el = html => { const t=document.createElement('template'); t.innerHTML=html.trim(); return t.content.firstChild; };
+    const list = arr => (!arr || !arr.length) ? '' : `<ul class="bullets">${arr.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+
+    /* ========= RENDER ========= */
+    const slug = qs('slug');
+    const project = DATA.find(p => p.slug === slug);
+
+    const titleEl = document.getElementById('title');
+    const subtitleEl = document.getElementById('subtitle');
+    const content = document.getElementById('content');
+
+    if(!project){
+      titleEl.textContent = '找不到專案';
+      subtitleEl.textContent = 'URL 中的 slug 沒有對應的專案，請返回專案列表重試。';
+    } else {
+      titleEl.textContent = project.title;
+
+      if(project.category === 'brand'){
+        subtitleEl.textContent = '';
+
+        // 1) 概述
+        content.appendChild(el(`
+          <section class="section">
+            <h2>概述</h2>
+            <p>${project.brandOverview || '—'}</p>
+          </section>
+        `));
+
+        // 2) 為什麼要做（有填才顯示）
+        if (project.whyWeDoIt) {
+          content.appendChild(el(`
+            <section class="section">
+              <h2>為什麼要做</h2>
+              <p>${project.whyWeDoIt}</p>
+            </section>
+          `));
+        }
+
+        // 3) 我的角色與管道
+        content.appendChild(el(`
+          <section class="section">
+            <h2>我的角色與管道</h2>
+            <div class="kv">
+              <div><b>我的角色</b></div><div>${project.role || '-'}</div>
+              <div><b>品牌 Instagram</b></div>
+              <div>
+                ${(project.instagramUrls||[]).map(insta =>
+                  `<a class="link" href="${insta.url}" target="_blank" rel="noopener">${insta.label}</a>`
+                ).join('<br>') || '-'}
+              </div>
+              ${project.websiteUrl ? `<div><b>官方網站</b></div><div><a class="link" href="${project.websiteUrl}" target="_blank" rel="noopener">${project.websiteUrl}</a></div>` : ''}
+            </div>
+          </section>
+        `));
+
+        // 4) 我們的成果
+        content.appendChild(el(`
+          <section class="section">
+            <h2>我們的成果</h2>
+            ${list(project.achievements)}
+          </section>
+        `));
+
+      } else {
+        // Business / Self-hosted
+        subtitleEl.textContent =
+          project.brandDescription || project.companyDescription || project.description || '';
+
+        // 概述（含連結）
+        content.appendChild(el(`
+          <section class="section">
+            <h2>概述</h2>
+            <div class="kv">
+              <div><b>類別</b></div><div>${project.category}</div>
+              ${project.role ? `<div><b>我的角色</b></div><div>${project.role}</div>` : ''}
+              ${project.industry ? `<div><b>產業</b></div><div>${project.industry}</div>` : ''}
+              ${project.company ? `<div><b>公司 / 個案</b></div><div>${project.company}</div>` : ''}
+              ${project.projectUrl ? `<div><b>專案連結</b></div><div><a class="link" href="${project.projectUrl}" target="_blank" rel="noopener">查看簡報</a></div>` : ''}
+              ${project.websiteUrl ? `<div><b>官方網站</b></div><div><a class="link" href="${project.websiteUrl}" target="_blank" rel="noopener">${project.websiteUrl}</a></div>` : ''}
+            </div>
+          </section>
+        `));
+
+        if(project.objectives) content.appendChild(el(`<section class="section"><h2>目標</h2>${list(project.objectives)}</section>`));
+        if(project.results) content.appendChild(el(`<section class="section"><h2>成效</h2>${list(project.results)}</section>`));
+        if(project.tools) content.appendChild(el(`<section class="section"><h2>工具 / 能力</h2>${list(project.tools)}</section>`));
+      }
+    }
+  </script>
+</body>
+</html>

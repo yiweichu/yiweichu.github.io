@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home | Yi Wei Chu</title>
+  <title>首頁 | Yi Wei Chu</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* 僅針對本頁 Hero/CTA/Banner，避免影響 .nav */
@@ -53,7 +53,7 @@
       display: block;
     }
 
-    /* Language dropdown style */
+    /* 語言切換選單樣式 */
     .lang-select {
       background: transparent;
       border: none;
@@ -68,44 +68,43 @@
   </style>
 </head>
 <body>
-  <!-- 導覽列（與其他頁面相同結構 & 由 style.css 控制樣式） -->
+  <!-- 導覽列 -->
   <nav class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="index.html">Yi Wei Chu • Portfolio</a>
+      <a class="brand" href="index-zh.html">Yi Wei Chu • 作品集</a>
       <div class="links">
-        <a href="index.html" class="active">Home</a>
-        <a href="projects.html">Projects</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <!-- Language selector -->
+        <a href="index-zh.html" class="active">首頁</a>
+        <a href="projects-zh.html">專案</a>
+        <a href="about-zh.html">關於我</a>
+        <a href="contact-zh.html">聯絡我</a>
+        <!-- 語言切換下拉選單 -->
         <select class="lang-select" onchange="location = this.value;">
           <option value=""selected>Language</option>
-          <option value="index.html" >English</option>
-          <option value="index-zh.html">中文</option>
+          <option value="index.html">English</option>
+          <option value="index-zh.html" >中文</option>
         </select>
       </div>
     </div>
   </nav>
 
-  <!-- Hero：左對齊標語 + 兩個快捷選項（不影響 .nav） -->
+  <!-- Hero -->
   <header class="home-hero">
     <div class="container">
-      <h1 class="home-headline">Strategy × Project Management × Brand</h1>
-      <p class="home-kicker">Shaping Brands with Strategy, Delivering Markets with Precision.</p>
+      <h1 class="home-headline">策略 × 專案管理 × 品牌</h1>
+      <p class="home-kicker">以策略塑品牌，用管理成就市場。</p>
 
       <div class="home-actions">
-        <a class="home-cta" href="projects.html">My Project Portfolio</a>
-        <a class="home-cta" href="about.html">About Me</a>
+        <a class="home-cta" href="projects-zh.html">我的專案作品集</a>
+        <a class="home-cta" href="about-zh.html">關於我</a>
       </div>
     </div>
   </header>
 
-  <!-- 只放 Banner -->
+  <!-- Banner -->
   <main>
     <section class="home-banner">
       <div class="container">
-        <!-- 請放置 1740x360 橫幅於 ./images/cyw-banner.jpg -->
-        <img src="./images/cyw-banner.jpg" alt="Yi Wei Chu banner">
+        <img src="./images/cyw-banner.jpg" alt="Yi Wei Chu 首頁橫幅">
       </div>
     </section>
   </main>

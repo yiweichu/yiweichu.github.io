@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About | Yi Wei Chu</title>
+  <title>關於我 | Yi Wei Chu</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     /* ===== Page-specific layout & typography normalization ===== */
@@ -81,22 +81,21 @@
     /* Two-up sections (Skills / International) */
     .two-grid { display:grid; gap:20px; grid-template-columns: repeat(2, 1fr); }
 
-    /* ===== 你指定的客製規則 ===== */
-
-    /* International Experience：title 左 / 日期右，同列；描述滿版換行 */
+    /* ===== 客製規則 ===== */
+    /* International Experience：title 左 / 日期右；描述滿版 */
     .ie-list li { padding-right: 0; }
     .ie-list .li-row { display:flex; align-items:flex-start; gap:12px; }
     .ie-list .li-title { font-weight:700; }
     .ie-list .li-date { margin-left:auto; white-space:nowrap; color:var(--muted); font-style:italic; }
     .ie-list .li-desc { display:block; margin-top:4px; }
 
-    /* Professional（Top Credit / EnJade / LesCs）：title 左 / 日期右，同列；bullets 滿版 */
+    /* Professional：title 左 / 日期右；bullets 滿版 */
     .jobs-list li.no-pad { padding-right:0; }
     .jobs-list .li-row { display:flex; align-items:flex-start; gap:12px; }
     .jobs-list .li-title { font-weight:700; }
     .jobs-list .li-date { margin-left:auto; white-space:nowrap; color:var(--muted); font-style:italic; }
     .subbullets { list-style:disc; margin:8px 0 0 18px; padding:0; }
-
+    
     /* Language dropdown (nav 內，改成 contact.html 風格) */
     .lang-group { display:flex; align-items:center; gap:6px; margin-left:12px; } /* 未使用，保留 */
     .lang-label { font-size:14px; color: var(--muted); } /* 未使用，保留 */
@@ -115,8 +114,6 @@
     }
     @media (max-width: 900px){
       .two-grid { grid-template-columns: 1fr; }
-
-      /* RWD：把 date 放到下一行 */
       .ie-list .li-row, .jobs-list .li-row { flex-wrap: wrap; }
       .ie-list .li-date, .jobs-list .li-date { margin-left:0; }
     }
@@ -134,168 +131,163 @@
 
         <!-- Language selector（與 contact.html 一致） -->
         <select class="lang-select" onchange="location = this.value;">
-          <option value="">Language</option>
-          <option value="about.html" selected>English</option>
+          <option value=""selected>Language</option>
+          <option value="about.html" >English</option>
           <option value="about-zh.html">中文</option>
         </select>
       </div>
     </div>
   </nav>
 
-  <!-- ===== HERO (text left, photo right) ===== -->
+  <!-- ===== HERO (文字左、照片右) ===== -->
   <header class="hero-split">
     <div class="container hero-grid">
       <div>
-        <h1>About Yi Wei Chu</h1>
-        <p class="hero-sub">Project Management · KPI Optimization · Stakeholder Communication · Global Supply Chain · Marketing Strategy</p>
-        <p class="hero-lang">Mandarin | English | French</p>
+        <h1>關於 Yi Wei Chu</h1>
+        <p class="hero-sub">專案管理 · 跨域溝通 · 全球供應鏈 · 戰略思維 · 文化洞察 · KPI 最佳化 </p>
+        <p class="hero-lang">中文 | 英文 | 法文 | 客語 | 台語</p>
       </div>
       <div class="hero-photo-wrap">
-        <img class="hero-photo" src="./images/my-photo.jpg" alt="Yi Wei Chu">
+        <img class="hero-photo" src="./images/my-photo.jpg" alt="Yi Wei Chu 個人照片">
       </div>
     </div>
   </header>
 
   <main class="container about-wrap">
 
-    <!-- ===== 1) Academic Background (full width row) ===== -->
+    <!-- 1) 學歷 -->
     <section class="about-section">
-      <h2>1) Academic Background</h2>
+      <h2>1) 學歷背景</h2>
       <ul class="list-tight">
         <li>
-          <b>emlyon business school | International MBA (Entrepreneurship)</b>, Lyon, France
+          <b>法國里昂高等商學院(emlyon)｜國際 MBA</b>，里昂，法國
           <i>Sep 2024 – Jul 2025</i>
         </li>
         <li>
-          <b>National Chung Hsing University | Master of International Politics</b>, Taichung, Taiwan
+          <b>國立中興大學｜國際政治碩士</b>，臺中，臺灣
           <i>Sep 2021 – Jun 2023</i>
         </li>
         <li>
-          <b>Fu Jen Catholic University | B.A. French Language & Culture</b>, New Taipei, Taiwan
+          <b>輔仁大學｜法國語文學士</b>，新北，臺灣
           <i>Sep 2014 – Jun 2018</i>
         </li>
       </ul>
     </section>
 
-    <!-- ===== 2) Professional Background (full width row) ===== -->
+    <!-- 2) 工作經歷 -->
     <section class="about-section" style="margin-top:20px">
-      <h2>2) Professional Background</h2>
+      <h2>2) 專業經歷</h2>
       <ul class="list-tight jobs-list">
 
-        <!-- Top Credit：左題右日 + bullets（已調好） -->
         <li class="no-pad">
           <div class="li-row">
-            <span class="li-title"><b>Project Manager | Top Credit Oversea Co. (Taiwan / China)</b></span>
+            <span class="li-title"><b>專案經理｜Top Credit Oversea Co.（臺灣／中國）</b></span>
             <span class="li-date">Sep 2018 – Jun 2023</span>
           </div>
           <ul class="subbullets">
-            <li>Led 10–15 concurrent B2B product development projects per season, managing the full lifecycle across sourcing, production, QC, and client delivery.</li>
-            <li>Maintained 95%+ on-time shipment rate and reduced defect rate to below 2%, enhancing client retention and satisfaction.</li>
-            <li>Managed €100K+ annual budgets across 5+ European clients, driving repeat orders and long-term partnerships.</li>
-            <li>Reduced supplier lead times by 10% through proactive coordination with 15+ vendors in China, optimizing cross-border operations.</li>
-            <li>Built and maintained logistics KPI dashboards using Excel and Trello, improving stock accuracy from 85% to 95%.</li>
-            <li>Represented company at international trade fairs (e.g., MEGA SHOW, Ambiente), securing 3+ new B2B contracts through negotiation.</li>
+            <li>每季同時管理 10–15 個 B2B 專案，涵蓋採購、生產、品管到交付的全流程。</li>
+            <li>維持 95%+ 準時出貨率、瑕疵率低於 2%，顯著提升客戶滿意與留存。</li>
+            <li>管理歐洲 5+ 客戶、年度預算 €100K以上，推動重複訂單與長期合作。</li>
+            <li>協調中國 15+ 供應商，將交期縮短約 10%，優化營運效率。</li>
+            <li>建立物流 KPI 儀表板（Excel、Trello），庫存正確率由 85% 提升至 95%。</li>
+            <li>代表公司參與國際展會（如 MEGA SHOW、Ambiente），談成 3+ 筆新 B2B 合約。</li>
           </ul>
         </li>
 
-        <!-- EnJade：改成左題右日 + bullets（依你提供內容） -->
         <li class="no-pad">
           <div class="li-row">
-            <span class="li-title"><b>Founder & Project Lead | EnJade</b> (France & Taiwan)</span>
+            <span class="li-title"><b>創辦人暨企業策略｜EnJade</b>（法國與臺灣）</span>
             <span class="li-date">Dec 2023 – Present</span>
           </div>
           <ul class="subbullets">
-            <li>Launched a DTC jewelry brand combining emotional storytelling, reaching €14K/month revenue and 2%+ conversion within 6 months.</li>
-            <li>Oversaw full business lifecycle: supplier sourcing (5+ partners), quality control, inventory planning, pricing, and cross-border logistics.</li>
-            <li>Built enjade.fr with Squarespace; implemented SEO, Mailchimp CRM, AI-driven personalization, and integrated performance tracking (GA, Meta Suite), enabling dynamic pricing and stock optimization.</li>
-            <li>Designed and implemented strategic pricing model aligned with buyer psychology, improving AOV from €160 to €200 and repeat purchase rate via symbolic product storytelling.</li>
-            <li>Led MVP development of “AI Curator” for personalized onboarding and product recommendation, targeting 80% interaction rate and first-party emotional data capture.</li>
+            <li>創立以情感敘事為核心的 DTC 翡翠品牌，6個月內達到月營收 €14K、轉換率 2%+。</li>
+            <li>負責商務全鏈：供應商開發（5+ 夥伴）、品控、庫存規劃、定價、物流與行銷策略。</li>
+            <li>自建 enjade.fr（Squarespace），導入 SEO、AI 個人化系統、GA/Meta 追蹤，支援動態優化。</li>
+            <li>設計符合消費心理的定價策略，AOV 由 €160 提升至 €200，回購率同步改善。</li>
+            <li>主導「AI Curator」MVP，提升個人化導購互動，目標 80% 互動率與第一方情感數據蒐集。</li>
           </ul>
         </li>
 
-        <!-- LesCs News：改成左題右日 + bullets（依你提供內容） -->
         <li class="no-pad">
           <div class="li-row">
-            <span class="li-title"><b>Co-operator & Project Lead | LesCs News</b> (Taiwan)</span>
+            <span class="li-title"><b>共同創辦人｜LesCs News</b>（臺灣）</span>
             <span class="li-date">Jan 2020 – Jan 2023</span>
           </div>
           <ul class="subbullets">
-            <li>Planned and delivered 25+ multi-channel content campaigns, managing end-to-end workflows from ideation to rollout across editorial, design, and distribution teams.</li>
-            <li>Scaled Instagram presence to 14K+ followers with 20% monthly engagement growth through agile content testing, calendar optimization, and metric tracking.</li>
-            <li>Defined KPIs, built tracking frameworks, and led weekly performance reviews to drive data-informed content and engagement strategy.</li>
-            <li>Coordinated with external influencers and internal contributors to align messaging, timelines, and deliverables across cross-functional teams.</li>
-            <li>Implemented audience segmentation and social listening to improve content targeting, boosting retention and share rates by 30%+.</li>
+            <li>規劃 25+ 組跨品牌合作內容，從發想到上線串接編採、設計與發佈。</li>
+            <li>Instagram 追蹤數提升至 14K+，透過敏捷測試、行事曆優化、指標追蹤，月互動成長約 20%。</li>
+            <li>制定追蹤框架與KPI，主持週檢討，推動數據導向的內容與互動策略。</li>
+            <li>協調外部 KOL 與內部協作者，確保訊息、時程與文案進度。</li>
+            <li>導入受眾分群與社群聆聽，精準投放內容，留存與分享率提升 30%+。</li>
           </ul>
         </li>
 
       </ul>
     </section>
 
-    <!-- ===== 3) Skills + 4) International (two columns) ===== -->
+    <!-- 3) Skills + 4) International -->
     <div class="two-grid" style="margin-top:20px">
 
-      <!-- 3) Skills -->
       <section class="about-section">
-        <h2>3) Skills</h2>
-        <p><b>Core Competencies</b></p>
+        <h2>3) 技能</h2>
+        <p><b>核心能力</b></p>
         <div>
-          <span class="tag">Project Management | Product Lifecycle & Roadmaps</span>
-          <span class="tag">KPI Optimization | Cross-Functional Collaboration</span>
-          <span class="tag">Stakeholder Management | Suppliers Negotiation</span>
-          <span class="tag">Customer Relationship Management | GTM Strategy</span>
-          <span class="tag">Marketing Strategy | SEO | Social Media Ads</span>
+          <span class="tag">專案管理｜產品生命週期與規劃</span>
+          <span class="tag">KPI 優化｜跨部門協作｜GTM 策略</span>
+          <span class="tag">客戶關係管理｜供應商談判</span>
+          <span class="tag">商業策略｜跨文化溝通</span>
+          <span class="tag">行銷策略｜社群廣告投放</span>
         </div>
 
-        <p style="margin-top:10px"><b>Tools</b></p>
+        <p style="margin-top:10px"><b>工具</b></p>
         <div>
-          <span class="tag">Excel | Microsoft Office | Notion | Trello</span>
-          <span class="tag">Slack | ClickUp | Loop | Canva | X-Mind</span>
-          <span class="tag">Adobe Illustrator | Photoshop | Acrobat | Capcut</span>
-          <span class="tag">Squarespace | Wix | Google Analytics | Basic HTML</span>
+          <span class="tag">Excel｜Microsoft Office｜Notion｜Trello</span>
+          <span class="tag">Slack｜ClickUp｜Loop｜Canva｜X-Mind</span>
+          <span class="tag">Adobe Illustrator｜Photoshop｜Acrobat｜Capcut</span>
+          <span class="tag">Squarespace｜Wix｜Google Analytics｜Basic HTML</span>
         </div>
 
-        <p style="margin-top:10px"><b>Ongoing Learning</b></p>
+        <p style="margin-top:10px"><b>進修中</b></p>
         <div>
-          <span class="tag">Power BI | Tableau | CAPM</span>
+          <span class="tag">Power BI｜Tableau｜CAPM</span>
         </div>
       </section>
 
-      <!-- 4) International Experience -->
       <section class="about-section">
-        <h2>4) International Experience</h2>
+        <h2>4) 國際經驗</h2>
         <ul class="list-tight ie-list">
           <li>
             <div class="li-row">
-              <span class="li-title"><b>Institut Catholique de Paris</b></span>
+              <span class="li-title"><b>巴黎天主教大學</b></span>
               <span class="li-date">Jan – Jun 2018</span>
             </div>
-            <span class="li-desc">Exchange Student | Paris, France</span>
+            <span class="li-desc">交換學生｜巴黎，法國</span>
           </li>
           <li>
             <div class="li-row">
-              <span class="li-title"><b>White Water Elderly Charity Association</b></span>
+              <span class="li-title"><b>白水老人愛心慈善會柬埔寨義診團</b></span>
               <span class="li-date">Aug 2016</span>
             </div>
-            <span class="li-desc">International Clinic Volunteer | Cambodia</span>
-            <span class="li-desc">Supported educational outreach, basic health education, and distribution of essential supplies.</span>
+            <span class="li-desc">國際義診志工｜柬埔寨</span>
+            <span class="li-desc">協助教育宣導、義診、基礎衛教與必需物資發放。</span>
           </li>
           <li>
             <div class="li-row">
-              <span class="li-title"><b>White Water Elderly Charity Association</b></span>
+              <span class="li-title"><b>白水老人愛心慈善會柬埔寨義診團</b></span>
               <span class="li-date">Aug 2017</span>
             </div>
-            <span class="li-desc">International Clinic Volunteer | Cambodia</span>
-            <span class="li-desc">Supported educational outreach, basic health education, and distribution of essential supplies.</span>
+            <span class="li-desc">國際義診志工｜柬埔寨</span>
+            <span class="li-desc">協助教育宣導、義診、基礎衛教與必需物資發放。</span>
           </li>
         </ul>
       </section>
 
     </div>
 
-    <!-- ===== 5) Interests (single row) ===== -->
+    <!-- 5) 興趣與證照 -->
     <section class="about-section" style="margin-top:20px">
-      <h2>5) Interests & Certifications</h2>
-      <p>Jadeite Appraiser &nbsp; | &nbsp; Piano - Steinbach Certification &nbsp; | &nbsp; Aerial Yoga Teacher Training Level 1</p>
+      <h2>5) 興趣</h2>
+      <p>翡翠鑑定與鑑價師｜鋼琴（Steinbach 鋼琴檢定）｜空中瑜伽師資培訓 Level 1</p>
     </section>
 
   </main>

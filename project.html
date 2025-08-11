@@ -16,6 +16,15 @@
     .bullets { margin: 6px 0 0 18px; }
     .bullets li { margin: 4px 0; }
     @media (max-width: 800px){ .kv{ grid-template-columns: 1fr; } }
+
+    /* Language dropdown style (same as other pages) */
+    .lang-select {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -27,6 +36,16 @@
         <a href="projects.html">Projects</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <!-- Language selector: preserves ?slug=... when switching -->
+        <select class="lang-select" onchange="(function(sel){
+          var params=new URLSearchParams(location.search);var slug=params.get('slug')||'';
+          var q=slug?('?slug='+encodeURIComponent(slug)):'';
+          location.href = sel.value==='zh' ? ('project-zh.html'+q) : ('project.html'+q);
+        })(this)">
+          <option value="">Language</option>
+          <option value="en" selected>English</option>
+          <option value="zh">中文</option>
+        </select>
       </div>
     </div>
   </nav>
@@ -140,7 +159,7 @@
       },
 
       { category:"business", slug:"saf", title:"SAF Sustainable Aviation Fuel Market Analysis & Value Chain Development Strategy",
-        industry:"Aerospace", company:"Confidential",
+        industry:"Aerospace", company:"Air France",
         description:"Comprehensive analysis of decarbonization policies and SAF markets across regions; recommendations on partnerships and entry strategies aligned with frameworks such as EU ETS, CORSIA, and RefuelEU.",
         projectUrl:"https://www.canva.com/design/DAGVs1NesX4/Po9HrteL5G3M5ukoneYvOQ/edit?utm_content=DAGVs1NesX4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
         objectives:[
@@ -266,22 +285,23 @@
           "Skills & Concepts: Capital structure, risk-return, financing mix design."
         ]
       },
-
-      { category:"business", slug:"partnership-strategy", title:"Partnership Strategy & Co-Marketing Playbook",
-        industry:"Business Development", company:"Confidential",
-        description:"ICP partner mapping, pitch materials, governance model, and co-marketing calendar to accelerate pipeline.",
-        projectUrl:"https://www.canva.com/your-link-partnership",
+      { category:"business", slug:"performance-evaluation", title:"Airport Travel Retail Performance Evaluation & Enhancement Strategy",
+        industry:"Travel Retail & Airline Services", company:"Aélia",
+        description:"This project, set in the context of Paris Charles de Gaulle Airport and its major airline partner, develops a Performance Management System (PMS) for Aélia, a leading travel retailer. The aim is to secure a 5-year concession contract and enhance brand competitiveness with airport and airline partners. The strategy combines high sales, strong partnerships, and sustainability, using a Balanced Scorecard framework to define objectives and KPIs across financial, customer, internal process, and learning & growth perspectives.",
+        projectUrl:"https://www.canva.com/design/DAGgH_qmoro/ZDC4EjHnTOVZvXwTCZflKQ/edit?utm_content=DAGgH_qmoro&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton",
         objectives:[
-          "Define ICP partners and sourcing channels.",
-          "Standardize partner pitches and toolkits.",
-          "Design governance & success metrics.",
-          "Build quarterly activation calendar."
+          "Increase Sales per Passenger (SPP) to maximize commissions and dividends for airport and airline partners.",
+          "Enhance passenger shopping experience and position the airport as a premium retail destination.",
+          "Build long-term strategic partnerships with airports and airlines.",
+          "Promote sustainability and corporate social responsibility to strengthen brand reputation."
         ],
         tools:[
-          "Tools: Canva, Sheets.",
-          "Skills & Concepts: BD pipeline, partner ops, measurement."
+          "Analytical Tools: Balanced Scorecard, KPI design & performance tracking, customer feedback systems.",
+          "Business Concepts: Travel retail management, partnership management, sustainability strategy.",
+          "Project Skills: Performance management system design, financial & operational data analysis, conversion rate & efficiency optimization"
         ]
       },
+      
     ];
 
     /* Self-hosted（含你的手寫個人網站） */
